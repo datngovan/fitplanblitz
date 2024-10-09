@@ -15,6 +15,7 @@ module.exports = {
     extend: {
       colors: {
         border: "hsl(var(--border))",
+        themeColor: "linear-gradient(45deg, #00C9FF, #92FE9D);",
         input: "hsl(var(--input))",
         ring: "hsl(var(--ring))",
         background: "hsl(var(--background))",
@@ -54,7 +55,7 @@ module.exports = {
         sm: "calc(var(--radius) - 4px)",
       },
       fontFamily: {
-        sans: ["var(--font-sans)", ...fontFamily.sans],
+        sans: ["Hanken Grotesk", "sans-serif"],
       },
       keyframes: {
         "accordion-down": {
@@ -65,10 +66,24 @@ module.exports = {
           from: { height: "var(--radix-accordion-content-height)" },
           to: { height: 0 },
         },
+        liquid: {
+          "0%": { transform: "translate(-50%, -50%) scale(0)" },
+          "100%": { transform: "translate(-50%, -50%) scale(1)" },
+        },
+        liquidExpand: {
+          "0%": { transform: "translate(-50%, -50%) scale(0)" },
+          "100%": { transform: "translate(-50%, -50%) scale(1.2)" },
+        },
       },
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
+        liquid: "liquid 0.6s ease forwards",
+        liquidExpand: "liquidExpand 0.6s ease forwards",
+      },
+      backgroundImage: {
+        "gradient-primary": "linear-gradient(45deg, #00C9FF, #92FE9D);",
+        "gradient-hover": "linear-gradient(90deg, #00C9FF, #92FE9D)",
       },
     },
   },

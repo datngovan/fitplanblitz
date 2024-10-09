@@ -24,8 +24,8 @@ export default function IndexPage() {
 
         <p className="text-lg text-neutral-400 lg:px-24 mx-auto">
           Unlock your potential and take charge of your fitness journey with our
-          cutting-edge fitness program generator. Whether you're aiming to build
-          strength, lose weight, or enhance your overall well-being, our
+          cutting-edge fitness program generator. Whether you&apos;re aiming to
+          build strength, lose weight, or enhance your overall well-being, our
           intuitive app has you covered.
         </p>
 

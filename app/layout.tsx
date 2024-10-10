@@ -44,7 +44,7 @@ export default function RootLayout({ children }: RootLayoutProps) {
         >
           <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
             <div className="relative flex min-h-screen flex-col">
-              <Navbar className="px-5 lg:w-5/6 mx-auto" />
+              <Navbar className="mx-auto px-5 lg:w-5/6" />
               <div className="flex-1">{children}</div>
             </div>
             <TailwindIndicator />

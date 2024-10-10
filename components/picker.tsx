@@ -23,14 +23,14 @@ export default function Picker({
   // returns
   return (
     <div className="flex flex-col gap-3">
-      <div className="flex flex-col gap-2 w-fit">
+      <div className="flex w-fit flex-col gap-2">
         <div className="flex items-center gap-6">
           <Button
             onClick={() => {
               if (value - 1 >= min) onRemove()
             }}
             variant="outline"
-            className="rounded-full w-10 h-10 p-2 text-2xl"
+            className="size-10 rounded-full p-2 text-2xl"
           >
             <IoIosRemove />
           </Button>
@@ -42,12 +42,12 @@ export default function Picker({
               if (value + 1 <= max) onAdd()
             }}
             variant="outline"
-            className="rounded-full w-10 h-10 p-2 text-2xl"
+            className="size-10 rounded-full p-2 text-2xl"
           >
             <IoIosAdd />
           </Button>
         </div>
-        <span className="text-md text-neutral-500 text-center">{tag}</span>
+        <span className="text-md text-center text-neutral-500">{tag}</span>
       </div>
       <Slider
         defaultValue={[value]}

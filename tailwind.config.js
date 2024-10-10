@@ -14,6 +14,8 @@ module.exports = {
     },
     extend: {
       colors: {
+        // This keeps the default colors while adding your custom ones
+        ...require("tailwindcss/colors"),
         border: "hsl(var(--border))",
         themeColor: "linear-gradient(45deg, #00C9FF, #92FE9D);",
         input: "hsl(var(--input))",
@@ -55,7 +57,7 @@ module.exports = {
         sm: "calc(var(--radius) - 4px)",
       },
       fontFamily: {
-        sans: ["Hanken Grotesk", "sans-serif"],
+        sans: ["Hanken Grotesk", ...fontFamily.sans],
       },
       keyframes: {
         "accordion-down": {

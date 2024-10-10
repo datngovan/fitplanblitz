@@ -46,7 +46,7 @@ export default function BasicInfoCard({
         <div className="flex flex-col space-y-3">
           <Label htmlFor="name" className="text-md lg:text-lg">
             Email address{" "}
-            <span className="text-neutral-500 text-xs lg:text-md">
+            <span className="lg:text-md text-xs text-neutral-500">
               (optional)
             </span>
           </Label>
@@ -55,7 +55,7 @@ export default function BasicInfoCard({
             onChange={(e) => setAnswers({ ...answers, name: e.target.value })}
             id="name"
             placeholder="example@email.com"
-            className="py-6 lg:py-7 text-md lg:text-xl"
+            className="text-md py-6 lg:py-7 lg:text-xl"
           />
         </div>
 
@@ -76,21 +76,21 @@ export default function BasicInfoCard({
         </div>
 
         {/* Gender */}
-        <div className="flex flex-col w-full space-y-3">
+        <div className="flex w-full flex-col space-y-3">
           <Label htmlFor="gender" className="text-md lg:text-lg">
             Sex
           </Label>
           <RadioGroup
             defaultValue={answers.gender}
             onValueChange={(e) => setAnswers({ ...answers, gender: e })}
-            className="flex gap-4 w-full"
+            className="flex w-full gap-4"
           >
             {/* Male */}
             <div className="w-full">
               <RadioGroupItem value="M" id="M" className="peer sr-only" />
               <Label
                 htmlFor="M"
-                className="flex relative h-full text-center text-xl lg:text-2xl gap-2 flex-col items-center justify-between rounded-md border-2 border-muted bg-popover p-4 hover:bg-accent hover:text-accent-foreground peer-data-[state=checked]:border-teal-400 peer-data-[state=checked]:bg-secondary [&:has([data-state=checked])]:border-primary"
+                className="relative flex h-full flex-col items-center justify-between gap-2 rounded-md border-2 border-muted bg-popover p-4 text-center text-xl hover:bg-accent hover:text-accent-foreground peer-data-[state=checked]:border-teal-400 peer-data-[state=checked]:bg-secondary lg:text-2xl [&:has([data-state=checked])]:border-primary"
               >
                 <span className="text-2xl lg:text-3xl">🧑</span>
                 Male
@@ -102,7 +102,7 @@ export default function BasicInfoCard({
               <RadioGroupItem value="F" id="female" className="peer sr-only" />
               <Label
                 htmlFor="female"
-                className="flex h-full text-center text-xl lg:text-2xl gap-2 flex-col items-center justify-between rounded-md border-2 border-muted bg-popover p-4 hover:bg-accent hover:text-accent-foreground peer-data-[state=checked]:border-teal-400 [&:has([data-state=checked])]:border-primary"
+                className="flex h-full flex-col items-center justify-between gap-2 rounded-md border-2 border-muted bg-popover p-4 text-center text-xl hover:bg-accent hover:text-accent-foreground peer-data-[state=checked]:border-teal-400 lg:text-2xl [&:has([data-state=checked])]:border-primary"
               >
                 <span className="text-2xl lg:text-3xl">👩</span>
                 Female
@@ -112,8 +112,8 @@ export default function BasicInfoCard({
         </div>
 
         {/* Height and Weight */}
-        <div className="flex flex-col lg:flex-row w-full gap-4 h-full">
-          <div className="flex flex-col space-y-2 w-full h-full">
+        <div className="flex size-full flex-col gap-4 lg:flex-row">
+          <div className="flex size-full flex-col space-y-2">
             <Label htmlFor="age" className="text-md lg:text-lg">
               Height 📏
             </Label>
@@ -134,7 +134,7 @@ export default function BasicInfoCard({
 
           <Separator orientation="vertical" className="hidden lg:block" />
 
-          <div className="flex flex-col space-y-2 w-full h-full">
+          <div className="flex size-full flex-col space-y-2">
             <Label htmlFor="age" className="text-md lg:text-lg">
               Weight ⚖️
             </Label>
@@ -155,7 +155,7 @@ export default function BasicInfoCard({
         </div>
 
         {/* Measure question */}
-        <div className="flex flex-col w-full gap-3">
+        <div className="flex w-full flex-col gap-3">
           <Label htmlFor="name" className="text-md lg:text-lg">
             Do you have measuring tape?
           </Label>
@@ -166,7 +166,7 @@ export default function BasicInfoCard({
               setIsChoose(true)
               setIsAccurate(e === "yes")
             }}
-            className="flex gap-6 items-center"
+            className="flex items-center gap-6"
           >
             <div className="flex items-center space-x-2">
               <RadioGroupItem value="yes" id="yes" />
@@ -185,7 +185,7 @@ export default function BasicInfoCard({
 
         {/* Body composition - Approximate */}
         {is_choose && !is_accurate && (
-          <div className="flex flex-col w-full space-y-3">
+          <div className="flex w-full flex-col space-y-3">
             <Label htmlFor="gender" className="text-md lg:text-lg">
               What is your current body fat percentage?
             </Label>
@@ -193,10 +193,10 @@ export default function BasicInfoCard({
             <RadioGroup
               onValueChange={(e) => setAnswers({ ...answers, body_type: e })}
               defaultValue={answers.body_type}
-              className="grid grid-cols-2 lg:grid-cols-3 gap-4 w-full h-full"
+              className="grid size-full grid-cols-2 gap-4 lg:grid-cols-3"
             >
               {/* Ultra-Lean */}
-              <div className="w-full col-span-1 h-full">
+              <div className="col-span-1 size-full">
                 <RadioGroupItem
                   value="ultralean"
                   id="ultralean"
@@ -204,18 +204,18 @@ export default function BasicInfoCard({
                 />
                 <Label
                   htmlFor="ultralean"
-                  className="flex h-full text-center text-lg lg:text-2xl gap-2 flex-col items-center justify-between rounded-md border-2 border-muted bg-popover p-4 hover:bg-accent hover:text-accent-foreground peer-data-[state=checked]:border-teal-400 [&:has([data-state=checked])]:border-primary"
+                  className="flex h-full flex-col items-center justify-between gap-2 rounded-md border-2 border-muted bg-popover p-4 text-center text-lg hover:bg-accent hover:text-accent-foreground peer-data-[state=checked]:border-teal-400 lg:text-2xl [&:has([data-state=checked])]:border-primary"
                 >
                   <span className="text-3xl">🔥</span>
                   Super Lean
-                  <span className="text-neutral-400 text-sm text-center font-normal">
+                  <span className="text-center text-sm font-normal text-neutral-400">
                     1% - 5% body fat
                   </span>
                 </Label>
               </div>
 
               {/* very Lean */}
-              <div className="w-full col-span-1 h-full">
+              <div className="col-span-1 size-full">
                 <RadioGroupItem
                   value="verylean"
                   id="verylean"
@@ -223,18 +223,18 @@ export default function BasicInfoCard({
                 />
                 <Label
                   htmlFor="verylean"
-                  className="flex h-full text-center text-lg lg:text-2xl gap-2 flex-col items-center justify-between rounded-md border-2 border-muted bg-popover p-4 hover:bg-accent hover:text-accent-foreground peer-data-[state=checked]:border-teal-400 [&:has([data-state=checked])]:border-primary"
+                  className="flex h-full flex-col items-center justify-between gap-2 rounded-md border-2 border-muted bg-popover p-4 text-center text-lg hover:bg-accent hover:text-accent-foreground peer-data-[state=checked]:border-teal-400 lg:text-2xl [&:has([data-state=checked])]:border-primary"
                 >
                   <span className="text-3xl">👌</span>
                   Very Lean
-                  <span className="text-neutral-400 text-sm text-center font-normal">
+                  <span className="text-center text-sm font-normal text-neutral-400">
                     6% - 10% body fat
                   </span>
                 </Label>
               </div>
 
               {/* Lean */}
-              <div className="w-full col-span-1 h-full">
+              <div className="col-span-1 size-full">
                 <RadioGroupItem
                   value="lean"
                   id="lean"
@@ -242,18 +242,18 @@ export default function BasicInfoCard({
                 />
                 <Label
                   htmlFor="lean"
-                  className="flex h-full text-center text-lg lg:text-2xl gap-2 flex-col items-center justify-between rounded-md border-2 border-muted bg-popover p-4 hover:bg-accent hover:text-accent-foreground peer-data-[state=checked]:border-teal-400 [&:has([data-state=checked])]:border-primary"
+                  className="flex h-full flex-col items-center justify-between gap-2 rounded-md border-2 border-muted bg-popover p-4 text-center text-lg hover:bg-accent hover:text-accent-foreground peer-data-[state=checked]:border-teal-400 lg:text-2xl [&:has([data-state=checked])]:border-primary"
                 >
                   <span className="text-3xl">🏋️‍♀️</span>
                   Lean
-                  <span className="text-neutral-400 text-sm text-center font-normal">
+                  <span className="text-center text-sm font-normal text-neutral-400">
                     11% - 15% body fat
                   </span>
                 </Label>
               </div>
 
               {/* Moderately Lean */}
-              <div className="w-full col-span-1 h-full">
+              <div className="col-span-1 size-full">
                 <RadioGroupItem
                   value="moderatelylean"
                   id="moderatelylean"
@@ -261,18 +261,18 @@ export default function BasicInfoCard({
                 />
                 <Label
                   htmlFor="moderatelylean"
-                  className="flex h-full text-center text-lg lg:text-2xl gap-2 flex-col items-center justify-between rounded-md border-2 border-muted bg-popover p-4 hover:bg-accent hover:text-accent-foreground peer-data-[state=checked]:border-teal-400 [&:has([data-state=checked])]:border-primary"
+                  className="flex h-full flex-col items-center justify-between gap-2 rounded-md border-2 border-muted bg-popover p-4 text-center text-lg hover:bg-accent hover:text-accent-foreground peer-data-[state=checked]:border-teal-400 lg:text-2xl [&:has([data-state=checked])]:border-primary"
                 >
                   <span className="text-3xl">🥦</span>
                   Quite Lean
-                  <span className="text-neutral-400 text-sm text-center font-normal">
+                  <span className="text-center text-sm font-normal text-neutral-400">
                     16% - 20% body fat
                   </span>
                 </Label>
               </div>
 
               {/* Healthy */}
-              <div className="w-full col-span-1 h-full">
+              <div className="col-span-1 size-full">
                 <RadioGroupItem
                   value="healthy"
                   id="healthy"
@@ -280,18 +280,18 @@ export default function BasicInfoCard({
                 />
                 <Label
                   htmlFor="healthy"
-                  className="flex h-full text-center text-lg lg:text-2xl gap-2 flex-col items-center justify-between rounded-md border-2 border-muted bg-popover p-4 hover:bg-accent hover:text-accent-foreground peer-data-[state=checked]:border-teal-400 [&:has([data-state=checked])]:border-primary"
+                  className="flex h-full flex-col items-center justify-between gap-2 rounded-md border-2 border-muted bg-popover p-4 text-center text-lg hover:bg-accent hover:text-accent-foreground peer-data-[state=checked]:border-teal-400 lg:text-2xl [&:has([data-state=checked])]:border-primary"
                 >
                   <span className="text-3xl">😊</span>
                   Healthy
-                  <span className="text-neutral-400 text-sm text-center font-normal">
+                  <span className="text-center text-sm font-normal text-neutral-400">
                     21% - 25% body fat
                   </span>
                 </Label>
               </div>
 
               {/* Moderately Overweight */}
-              <div className="w-full col-span-1 h-full">
+              <div className="col-span-1 size-full">
                 <RadioGroupItem
                   value="moderatelyoverweight"
                   id="moderatelyoverweight"
@@ -299,18 +299,18 @@ export default function BasicInfoCard({
                 />
                 <Label
                   htmlFor="moderatelyoverweight"
-                  className="flex h-full text-center text-lg lg:text-2xl gap-2 flex-col items-center justify-between rounded-md border-2 border-muted bg-popover p-4 hover:bg-accent hover:text-accent-foreground peer-data-[state=checked]:border-teal-400 [&:has([data-state=checked])]:border-primary"
+                  className="flex h-full flex-col items-center justify-between gap-2 rounded-md border-2 border-muted bg-popover p-4 text-center text-lg hover:bg-accent hover:text-accent-foreground peer-data-[state=checked]:border-teal-400 lg:text-2xl [&:has([data-state=checked])]:border-primary"
                 >
                   <span className="text-3xl">😬</span>
                   Quite Overweight
-                  <span className="text-neutral-400 text-sm text-center font-normal">
+                  <span className="text-center text-sm font-normal text-neutral-400">
                     26% - 30% body fat
                   </span>
                 </Label>
               </div>
 
               {/* overweight */}
-              <div className="w-full col-span-1 h-full">
+              <div className="col-span-1 size-full">
                 <RadioGroupItem
                   value="overweight"
                   id="overweight"
@@ -318,18 +318,18 @@ export default function BasicInfoCard({
                 />
                 <Label
                   htmlFor="overweight"
-                  className="flex h-full text-center text-lg lg:text-2xl gap-2 flex-col items-center justify-between rounded-md border-2 border-muted bg-popover p-4 hover:bg-accent hover:text-accent-foreground peer-data-[state=checked]:border-teal-400 [&:has([data-state=checked])]:border-primary"
+                  className="flex h-full flex-col items-center justify-between gap-2 rounded-md border-2 border-muted bg-popover p-4 text-center text-lg hover:bg-accent hover:text-accent-foreground peer-data-[state=checked]:border-teal-400 lg:text-2xl [&:has([data-state=checked])]:border-primary"
                 >
                   <span className="text-3xl">😓</span>
                   Overweight
-                  <span className="text-neutral-400 text-sm text-center font-normal">
+                  <span className="text-center text-sm font-normal text-neutral-400">
                     31% - 35% body fat
                   </span>
                 </Label>
               </div>
 
               {/* obese */}
-              <div className="w-full col-span-1 h-full">
+              <div className="col-span-1 size-full">
                 <RadioGroupItem
                   value="obese"
                   id="obese"
@@ -337,18 +337,18 @@ export default function BasicInfoCard({
                 />
                 <Label
                   htmlFor="obese"
-                  className="flex h-full text-center text-lg lg:text-2xl gap-2 flex-col items-center justify-between rounded-md border-2 border-muted bg-popover p-4 hover:bg-accent hover:text-accent-foreground peer-data-[state=checked]:border-teal-400 [&:has([data-state=checked])]:border-primary"
+                  className="flex h-full flex-col items-center justify-between gap-2 rounded-md border-2 border-muted bg-popover p-4 text-center text-lg hover:bg-accent hover:text-accent-foreground peer-data-[state=checked]:border-teal-400 lg:text-2xl [&:has([data-state=checked])]:border-primary"
                 >
                   <span className="text-3xl">😔</span>
                   Obese
-                  <span className="text-neutral-400 text-sm text-center font-normal">
+                  <span className="text-center text-sm font-normal text-neutral-400">
                     36% - 40% body fat
                   </span>
                 </Label>
               </div>
 
               {/* extremly obese */}
-              <div className="w-full col-span-1 h-full">
+              <div className="col-span-1 size-full">
                 <RadioGroupItem
                   value="extremly_obese"
                   id="extremly_obese"
@@ -356,11 +356,11 @@ export default function BasicInfoCard({
                 />
                 <Label
                   htmlFor="extremly_obese"
-                  className="flex h-full text-center text-lg lg:text-2xl gap-2 flex-col items-center justify-between rounded-md border-2 border-muted bg-popover p-4 hover:bg-accent hover:text-accent-foreground peer-data-[state=checked]:border-teal-400 [&:has([data-state=checked])]:border-primary"
+                  className="flex h-full flex-col items-center justify-between gap-2 rounded-md border-2 border-muted bg-popover p-4 text-center text-lg hover:bg-accent hover:text-accent-foreground peer-data-[state=checked]:border-teal-400 lg:text-2xl [&:has([data-state=checked])]:border-primary"
                 >
                   <span className="text-3xl">🆘</span>
                   Extremely Obese
-                  <span className="text-neutral-400 text-sm text-center font-normal">
+                  <span className="text-center text-sm font-normal text-neutral-400">
                     41% and above body fat
                   </span>
                 </Label>
@@ -371,20 +371,20 @@ export default function BasicInfoCard({
 
         {/* Body composition - Accurate */}
         {is_choose && is_accurate && (
-          <div className="flex flex-col w-full gap-3">
+          <div className="flex w-full flex-col gap-3">
             <Label htmlFor="gender" className="text-md lg:text-lg">
               What is your current body fat percentage?
             </Label>
 
-            <p className="text-neutral-400 text-sm mb-3">
+            <p className="mb-3 text-sm text-neutral-400">
               To accurately determine your body fat percentage, we require two
               or three measurements: your neck, waist and hip &#x28;if you are
               female&#x29; size. These essential measurements enable us to
               calculate your body fat percentage.
             </p>
 
-            <div className="flex flex-col md:flex-row gap-4 w-full h-full">
-              <div className="flex flex-col space-y-2 w-full h-full">
+            <div className="flex size-full flex-col gap-4 md:flex-row">
+              <div className="flex size-full flex-col space-y-2">
                 <Label htmlFor="age" className="text-md lg:text-lg">
                   Neck
                 </Label>
@@ -405,7 +405,7 @@ export default function BasicInfoCard({
 
               <Separator orientation="vertical" />
 
-              <div className="flex flex-col space-y-2 w-full h-full">
+              <div className="flex size-full flex-col space-y-2">
                 <Label htmlFor="age" className="text-md lg:text-lg">
                   Waist
                 </Label>
@@ -428,7 +428,7 @@ export default function BasicInfoCard({
                 <>
                   <Separator orientation="vertical" />
 
-                  <div className="flex flex-col space-y-2 w-full h-full">
+                  <div className="flex size-full flex-col space-y-2">
                     <Label htmlFor="age" className="text-md lg:text-lg">
                       Hip
                     </Label>

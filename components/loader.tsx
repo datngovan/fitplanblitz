@@ -7,19 +7,19 @@ export default function Loader() {
   return (
     <div className="space-y-8">
       <div className="space-y-2">
-        <Skeleton className="w-96 h-12" />
-        <Skeleton className="w-3/4 h-5" />
-        <Skeleton className="w-32 h-5" />
+        <Skeleton className="h-12 w-96" />
+        <Skeleton className="h-5 w-3/4" />
+        <Skeleton className="h-5 w-32" />
       </div>
 
       <div className="space-y-2">
         <div className="flex items-center gap-2">
-          <Skeleton className="rounded-full h-12 w-12" />
-          <Skeleton className="w-80 h-5" />
+          <Skeleton className="size-12 rounded-full" />
+          <Skeleton className="h-5 w-80" />
         </div>
-        <Skeleton className="w-96 h-5" />
-        <Skeleton className="w-44 h-5" />
-        <Skeleton className="w-16 h-5" />
+        <Skeleton className="h-5 w-96" />
+        <Skeleton className="h-5 w-44" />
+        <Skeleton className="h-5 w-16" />
       </div>
     </div>
   )

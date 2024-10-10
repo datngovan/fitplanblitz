@@ -71,7 +71,7 @@ export default function SleepCard({
         </div>
 
         {/* morning vs night */}
-        <div className="flex flex-col w-full space-y-2 text-lg">
+        <div className="flex w-full flex-col space-y-2 text-lg">
           <Label htmlFor="gender" className="text-lg">
             Are you a morning person or a night owl 🌞🌙 ?
           </Label>
@@ -80,7 +80,7 @@ export default function SleepCard({
               setAnswers({ ...answers, morning_or_night: e })
             }
             defaultValue={answers.morning_or_night}
-            className="flex gap-4 w-full"
+            className="flex w-full gap-4"
           >
             {/* Morning person */}
             <div className="w-full">
@@ -91,7 +91,7 @@ export default function SleepCard({
               />
               <Label
                 htmlFor="male"
-                className="flex gap-2 flex-col items-center justify-between rounded-md border-2 border-muted bg-popover p-4 hover:bg-accent hover:text-accent-foreground peer-data-[state=checked]:border-teal-400 [&:has([data-state=checked])]:border-primary"
+                className="flex flex-col items-center justify-between gap-2 rounded-md border-2 border-muted bg-popover p-4 hover:bg-accent hover:text-accent-foreground peer-data-[state=checked]:border-teal-400 [&:has([data-state=checked])]:border-primary"
               >
                 <span className="text-3xl">☀️</span>
                 Morning
@@ -107,7 +107,7 @@ export default function SleepCard({
               />
               <Label
                 htmlFor="female"
-                className="flex gap-2 flex-col items-center justify-between rounded-md border-2 border-muted bg-popover p-4 hover:bg-accent hover:text-accent-foreground peer-data-[state=checked]:border-teal-400 [&:has([data-state=checked])]:border-primary"
+                className="flex flex-col items-center justify-between gap-2 rounded-md border-2 border-muted bg-popover p-4 hover:bg-accent hover:text-accent-foreground peer-data-[state=checked]:border-teal-400 [&:has([data-state=checked])]:border-primary"
               >
                 <span className="text-3xl">🌑</span>
                 Night
@@ -124,7 +124,7 @@ export default function SleepCard({
           <RadioGroup
             onValueChange={(e) => setAnswers({ ...answers, screen_time: e })}
             defaultValue={answers.screen_time}
-            className="flex gap-6 items-center"
+            className="flex items-center gap-6"
           >
             <div className="flex items-center space-x-2 text-lg">
               <RadioGroupItem value="yes" id="yes" />
@@ -142,10 +142,10 @@ export default function SleepCard({
         </div>
 
         {/* clock */}
-        <div className="flex items-center w-full gap-3 h-full">
+        <div className="flex size-full items-center gap-3">
           {/* bed time */}
-          <div className="flex flex-col space-y-1.5 w-full h-full">
-            <Label htmlFor="name" className="text-lg text-center">
+          <div className="flex size-full flex-col space-y-1.5">
+            <Label htmlFor="name" className="text-center text-lg">
               At what time you usually go to bed 🛏️ ?
             </Label>
             <LocalizationProvider dateAdapter={AdapterDayjs}>
@@ -158,7 +158,7 @@ export default function SleepCard({
                 }
               />
             </LocalizationProvider>
-            <h3 className="text-center font-bold text-2xl">
+            <h3 className="text-center text-2xl font-bold">
               {answers.sleep_time}
               :00 {answers.sleep_time >= 12 ? "PM" : "AM"}
             </h3>

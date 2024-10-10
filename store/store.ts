@@ -1,6 +1,4 @@
 // imports
-
-import { useRouter } from "next/navigation"
 import Axios from "axios"
 import { create } from "zustand"
 
@@ -17,8 +15,9 @@ interface StepsState extends stepsType {
   blockNext: () => void
   allowNext: () => void
   getAnswer: (id: string) => object
-  getAllAnswers: () => Promise<any>
+  getAllAnswers: () => Promise<{}>
   generateOverview: () => Promise<void>
+  generateMockData: () => {}
 }
 
 export const useStepsStore = create<StepsState>((set, get) => ({
@@ -95,19 +94,20 @@ export const useStepsStore = create<StepsState>((set, get) => ({
   },
 
   getAllAnswers: async () => {
-    const steps = get().steps_list
-    let data = {}
+    try {
+      const steps = get().steps_list
+      let combinedAnswers = {}
 
-    steps.forEach((elt) => {
-      data = { ...data, ...elt.answers }
-    })
+      steps.forEach((elt) => {
+        combinedAnswers = { ...combinedAnswers, ...elt.answers }
+      })
 
-    const response = await Axios.post("/api/generate", data)
-    const { slug } = response.data
-    // eslint-disable-next-line react-hooks/rules-of-hooks
-    useRouter().push(`/program/${slug}`)
-
-    return response.data
+      console.log("Combined Answers:", combinedAnswers)
+      return combinedAnswers // Return the combined answers
+    } catch (err) {
+      console.error("Error generating answers:", err)
+      throw err
+    }
   },
 
   generateOverview: async () => {
@@ -116,7 +116,17 @@ export const useStepsStore = create<StepsState>((set, get) => ({
       ...get().steps_list[1].answers,
       ...get().steps_list[2].answers,
     }
+    console.log(data)
 
     await Axios.post("/api/generate/overview", data)
+  },
+
+  generateMockData: () => {
+    const data = {
+      ...get().steps_list[0].answers,
+      ...get().steps_list[1].answers,
+      ...get().steps_list[2].answers,
+    }
+    return data
   },
 }))

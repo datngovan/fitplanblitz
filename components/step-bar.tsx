@@ -56,7 +56,7 @@ export default function StepBar({
   // returns
   if (is_loading) {
     return (
-      <div className="border-t-2 h-20 py-3 px-8 bg-white bg-opacity-50 backdrop-blur-md z-50 fixed bottom-0 left-0 w-full flex items-center">
+      <div className="fixed bottom-0 left-0 z-50 flex h-20 w-full items-center border-t-2 bg-white bg-opacity-50 px-8 py-3 backdrop-blur-md">
         <div className="mx-auto animate-spin text-4xl">
           <PiSpinnerGap />
         </div>
@@ -66,7 +66,7 @@ export default function StepBar({
 
   return (
     <div
-      className={`border-t-2 py-3 px-8 bg-white bg-opacity-50 backdrop-blur-md z-50 fixed bottom-0 left-0 w-full flex ${
+      className={`fixed bottom-0 left-0 z-50 flex w-full border-t-2 bg-white bg-opacity-50 px-8 py-3 backdrop-blur-md ${
         !is_previous_btn && is_next_btn ? "justify-end" : "justify-between"
       }`}
     >
@@ -80,7 +80,7 @@ export default function StepBar({
             })
           }}
           variant="secondary"
-          className="lg:w-32 xl:w-40 2xl:w-44 lg:py-6 xl:py-7 2xl:py-8 text-lg xl:text-xl"
+          className="text-lg lg:w-32 lg:py-6 xl:w-40 xl:py-7 xl:text-xl 2xl:w-44 2xl:py-8"
         >
           👈 Previous
         </Button>
@@ -103,7 +103,7 @@ export default function StepBar({
               })
             )
           }}
-          className={`lg:w-32 xl:w-40 2xl:w-44 lg:py-6 xl:py-7 2xl:py-8 text-lg xl:text-xl animate__animated ${
+          className={`animate__animated text-lg lg:w-32 lg:py-6 xl:w-40 xl:py-7 xl:text-xl 2xl:w-44 2xl:py-8 ${
             is_blocked ? "" : "animate__pulse"
           } animate__infinite`}
         >
@@ -113,7 +113,7 @@ export default function StepBar({
       {is_generate_btn && (
         <Button
           onClick={generateProgram}
-          className="lg:w-32 xl:w-40 2xl:w-44 lg:py-6 xl:py-7 2xl:py-8 text-lg xl:text-xl"
+          className="text-lg lg:w-32 lg:py-6 xl:w-40 xl:py-7 xl:text-xl 2xl:w-44 2xl:py-8"
         >
           Let&apos;s Go 🚀
         </Button>

@@ -47,10 +47,10 @@ export default function FitGoal({
         <RadioGroup
           defaultValue={answers.fitness_goal}
           onValueChange={(e) => setAnswers({ ...answers, fitness_goal: e })}
-          className="grid grid-cols-1 lg:grid-cols-3 gap-4 w-full"
+          className="grid w-full grid-cols-1 gap-4 lg:grid-cols-3"
         >
           {/* Burn Fat */}
-          <div className="w-full col-span-1 h-full">
+          <div className="col-span-1 size-full">
             <RadioGroupItem
               value="burn_fats"
               id="burn_fats"
@@ -58,18 +58,18 @@ export default function FitGoal({
             />
             <Label
               htmlFor="burn_fats"
-              className="flex cursor-pointer gap-2 h-full text-2xl lg:text-3xl font-black text-center flex-col items-center justify-center rounded-md border-2 border-muted bg-popover p-4 hover:bg-accent hover:text-accent-foreground peer-data-[state=checked]:border-teal-400 [&:has([data-state=checked])]:border-primary"
+              className="flex h-full cursor-pointer flex-col items-center justify-center gap-2 rounded-md border-2 border-muted bg-popover p-4 text-center text-2xl font-black hover:bg-accent hover:text-accent-foreground peer-data-[state=checked]:border-teal-400 lg:text-3xl [&:has([data-state=checked])]:border-primary"
             >
               Burn Fats
               <Lottie loop animationData={fireAnimation} className="w-14" />
-              <span className="text-neutral-400 text-sm text-center font-normal">
+              <span className="text-center text-sm font-normal text-neutral-400">
                 Burn fats and lose weight
               </span>
             </Label>
           </div>
 
           {/* Cardiovascular Health */}
-          <div className="w-full col-span-1 h-full">
+          <div className="col-span-1 size-full">
             <RadioGroupItem
               value="cardiovascular"
               id="cardiovascular"
@@ -77,18 +77,18 @@ export default function FitGoal({
             />
             <Label
               htmlFor="cardiovascular"
-              className="flex cursor-pointer gap-2 h-full text-2xl lg:text-3xl font-black text-center flex-col items-center justify-between rounded-md border-2 border-muted bg-popover p-4 hover:bg-accent hover:text-accent-foreground peer-data-[state=checked]:border-teal-400 [&:has([data-state=checked])]:border-primary"
+              className="flex h-full cursor-pointer flex-col items-center justify-between gap-2 rounded-md border-2 border-muted bg-popover p-4 text-center text-2xl font-black hover:bg-accent hover:text-accent-foreground peer-data-[state=checked]:border-teal-400 lg:text-3xl [&:has([data-state=checked])]:border-primary"
             >
               Cardiovascular health
               <Lottie loop animationData={healthAnimation} className="w-14" />
-              <span className="text-neutral-400 text-sm text-center font-normal">
+              <span className="text-center text-sm font-normal text-neutral-400">
                 Better heart health and blood vessels
               </span>
             </Label>
           </div>
 
           {/* build muscles */}
-          <div className="w-full col-span-1 h-full">
+          <div className="col-span-1 size-full">
             <RadioGroupItem
               value="build_muscle"
               id="build_muscle"
@@ -96,11 +96,11 @@ export default function FitGoal({
             />
             <Label
               htmlFor="build_muscle"
-              className="flex h-full cursor-pointer gap-2 text-2xl lg:text-3xl font-black text-center flex-col items-center justify-between rounded-md border-2 border-muted bg-popover p-4 hover:bg-accent hover:text-accent-foreground peer-data-[state=checked]:border-teal-400 [&:has([data-state=checked])]:border-primary"
+              className="flex h-full cursor-pointer flex-col items-center justify-between gap-2 rounded-md border-2 border-muted bg-popover p-4 text-center text-2xl font-black hover:bg-accent hover:text-accent-foreground peer-data-[state=checked]:border-teal-400 lg:text-3xl [&:has([data-state=checked])]:border-primary"
             >
               Build Muscles
               <Lottie loop animationData={strongAnimation} className="w-14" />
-              <span className="text-neutral-400 text-sm text-center font-normal">
+              <span className="text-center text-sm font-normal text-neutral-400">
                 Burn fats and gain muscle
               </span>
             </Label>
@@ -131,70 +131,70 @@ export default function FitGoal({
       </div>
 
       {/* active */}
-      <div className="flex flex-col w-full space-y-1.5">
+      <div className="flex w-full flex-col space-y-1.5">
         <Label htmlFor="gender" className="text-md lg:text-lg">
           How active are you during the day 🏃‍♂️ ?
         </Label>
         <RadioGroup
           onValueChange={(e) => setAnswers({ ...answers, activity: e })}
           defaultValue={answers.activity}
-          className="grid grid-cols-1 lg:grid-cols-2 gap-4 w-full jfull"
+          className="jfull grid w-full grid-cols-1 gap-4 lg:grid-cols-2"
         >
           {/* none */}
-          <div className="w-full h-full col-span-1">
+          <div className="col-span-1 size-full">
             <RadioGroupItem value="0" id="none" className="peer sr-only" />
             <Label
               htmlFor="none"
-              className="flex h-full text-center text-lg lg:text-2xl gap-2 flex-col items-center justify-between rounded-md border-2 border-muted bg-popover p-4 hover:bg-accent hover:text-accent-foreground peer-data-[state=checked]:border-teal-400 [&:has([data-state=checked])]:border-primary"
+              className="flex h-full flex-col items-center justify-between gap-2 rounded-md border-2 border-muted bg-popover p-4 text-center text-lg hover:bg-accent hover:text-accent-foreground peer-data-[state=checked]:border-teal-400 lg:text-2xl [&:has([data-state=checked])]:border-primary"
             >
               <span className="text-3xl">💻</span>
               No movements at all
-              <span className="text-neutral-400 text-sm text-center font-normal">
+              <span className="text-center text-sm font-normal text-neutral-400">
                 I spend almost all day on my chair
               </span>
             </Label>
           </div>
 
           {/* low */}
-          <div className="w-full h-full col-span-1">
+          <div className="col-span-1 size-full">
             <RadioGroupItem value="1" id="low" className="peer sr-only" />
             <Label
               htmlFor="low"
-              className="flex h-full text-center text-lg lg:text-2xl gap-2 flex-col items-center justify-between rounded-md border-2 border-muted bg-popover p-4 hover:bg-accent hover:text-accent-foreground peer-data-[state=checked]:border-teal-400 [&:has([data-state=checked])]:border-primary"
+              className="flex h-full flex-col items-center justify-between gap-2 rounded-md border-2 border-muted bg-popover p-4 text-center text-lg hover:bg-accent hover:text-accent-foreground peer-data-[state=checked]:border-teal-400 lg:text-2xl [&:has([data-state=checked])]:border-primary"
             >
               <span className="text-3xl">🧘‍♂️</span>
               Few movements
-              <span className="text-neutral-400 text-sm text-center font-normal">
+              <span className="text-center text-sm font-normal text-neutral-400">
                 I take break during daytime and do some physical movements
               </span>
             </Label>
           </div>
 
           {/* Moderately Active */}
-          <div className="w-full h-full col-span-1">
+          <div className="col-span-1 size-full">
             <RadioGroupItem value="2" id="moderate" className="peer sr-only" />
             <Label
               htmlFor="moderate"
-              className="flex h-full text-center text-lg lg:text-2xl gap-2 flex-col items-center justify-between rounded-md border-2 border-muted bg-popover p-4 hover:bg-accent hover:text-accent-foreground peer-data-[state=checked]:border-teal-400 [&:has([data-state=checked])]:border-primary"
+              className="flex h-full flex-col items-center justify-between gap-2 rounded-md border-2 border-muted bg-popover p-4 text-center text-lg hover:bg-accent hover:text-accent-foreground peer-data-[state=checked]:border-teal-400 lg:text-2xl [&:has([data-state=checked])]:border-primary"
             >
               <span className="text-3xl">⚡️</span>
               Moderately Active
-              <span className="text-neutral-400 text-sm text-center font-normal">
+              <span className="text-center text-sm font-normal text-neutral-400">
                 I spend average 60 minutes a day doing physical activites
               </span>
             </Label>
           </div>
 
           {/* Very Active */}
-          <div className="w-full h-full col-span-1">
+          <div className="col-span-1 size-full">
             <RadioGroupItem value="3" id="active" className="peer sr-only" />
             <Label
               htmlFor="active"
-              className="flex h-full text-center text-lg lg:text-2xl gap-2 flex-col items-center justify-between rounded-md border-2 border-muted bg-popover p-4 hover:bg-accent hover:text-accent-foreground peer-data-[state=checked]:border-teal-400 [&:has([data-state=checked])]:border-primary"
+              className="flex h-full flex-col items-center justify-between gap-2 rounded-md border-2 border-muted bg-popover p-4 text-center text-lg hover:bg-accent hover:text-accent-foreground peer-data-[state=checked]:border-teal-400 lg:text-2xl [&:has([data-state=checked])]:border-primary"
             >
               <span className="text-3xl">🔥</span>
               Super Active
-              <span className="text-neutral-400 text-sm text-center font-normal">
+              <span className="text-center text-sm font-normal text-neutral-400">
                 I love physical activities and spend big amount of time to
                 pratice
               </span>

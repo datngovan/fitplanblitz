@@ -48,7 +48,7 @@ export default function MedicalCard({
               setAnswers({ ...answers, medical_conditions: e })
             }}
             defaultValue={answers.medical_conditions}
-            className="flex gap-6 items-center"
+            className="flex items-center gap-6"
           >
             <div className="flex items-center space-x-2">
               <RadioGroupItem value="yes" id="yes" />
@@ -88,7 +88,7 @@ export default function MedicalCard({
             onValueChange={(e) => {
               setAnswers({ ...answers, specific_dietary: e })
             }}
-            className="flex gap-6 items-center"
+            className="flex items-center gap-6"
           >
             <div className="flex items-center space-x-2">
               <RadioGroupItem value="yes" id="yes-2" />

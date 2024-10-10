@@ -12,7 +12,7 @@ import { Separator } from "./separator"
 function Bar({ done }: { done: boolean }): any {
   return (
     <Separator
-      className={`w-5 xl:w-9 2xl:w-10 h-0.5 xl:h-1 rounded-full opacity-50 ${
+      className={`h-0.5 w-5 rounded-full opacity-50 xl:h-1 xl:w-9 2xl:w-10 ${
         done ? "bg-gradient-primary" : "bg-neutral-400"
       }`}
     />
@@ -28,7 +28,7 @@ function SpecialPoint({
 }) {
   return (
     <>
-      <span className="text-3xl xl:text-4xl 2xl:text-5xl mr-1">{icon}</span>
+      <span className="mr-1 text-3xl xl:text-4xl 2xl:text-5xl">{icon}</span>
       {has_next && <Bar done />}
     </>
   )
@@ -129,7 +129,7 @@ export default function Road({ data }: { data: roadType }) {
 
   // returns
   return (
-    <div className="hidden lg:flex items-center absolute top-2/4 left-2/4 -translate-x-2/4 -translate-y-2/4">
+    <div className="absolute left-2/4 top-2/4 hidden -translate-x-2/4 -translate-y-2/4 items-center lg:flex">
       {data.start_icon && <SpecialPoint has_next icon={data.start_icon} />}
 
       {data.breakpoints.map((breakpoint: breakpointType, index) => (

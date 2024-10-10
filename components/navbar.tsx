@@ -20,7 +20,7 @@ export default function Navbar({ className }: { className: string }) {
   const [open, setOpen] = useState(false)
   return (
     <div
-      className={`flex py-6 justify-between items-center ${className} w-full`}
+      className={`flex items-center justify-between py-6 ${className} w-full`}
     >
       {/* LOGO */}
       <div className="w-36 md:w-40 xl:w-60">
@@ -38,18 +38,18 @@ export default function Navbar({ className }: { className: string }) {
           }}
           aria-label="Toggle Menu"
         >
-          {open ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
+          {open ? <X className="size-6" /> : <Menu className="size-6" />}
         </button>
       </div>
       {/* LINKS */}
-      <NavigationMenu className="justify-between mx-auto w-2/6 hidden md:flex">
+      <NavigationMenu className="mx-auto hidden w-2/6 justify-between md:flex">
         <NavigationMenuList>
           {/* HOME */}
           <NavigationMenuItem>
             <Link href="/">
               <Button
                 variant="ghost"
-                className="text-lg font-semibold rounded-xl hover:bg-neutral-100"
+                className="rounded-xl text-lg font-semibold hover:bg-neutral-100"
                 size="lg"
               >
                 Home
@@ -62,7 +62,7 @@ export default function Navbar({ className }: { className: string }) {
             <Link href="/about">
               <Button
                 variant="ghost"
-                className="text-lg font-semibold rounded-xl hover:bg-neutral-100"
+                className="rounded-xl text-lg font-semibold hover:bg-neutral-100"
                 size="lg"
               >
                 About
@@ -72,7 +72,7 @@ export default function Navbar({ className }: { className: string }) {
         </NavigationMenuList>
       </NavigationMenu>
       {open && (
-        <div className="absolute top-16 left-0 w-full bg-white shadow-lg md:hidden">
+        <div className="absolute left-0 top-16 w-full bg-white shadow-lg md:hidden">
           <NavigationMenuBurger>
             <NavigationMenuList className="flex flex-col items-center space-y-4 p-4">
               {/* HOME */}
@@ -80,7 +80,7 @@ export default function Navbar({ className }: { className: string }) {
                 <Link href="/">
                   <Button
                     variant="ghost"
-                    className="text-lg font-semibold rounded-xl w-full hover:bg-neutral-100"
+                    className="w-full rounded-xl text-lg font-semibold hover:bg-neutral-100"
                     size="lg"
                     onClick={() => setOpen(false)} // Close menu on click
                   >
@@ -94,7 +94,7 @@ export default function Navbar({ className }: { className: string }) {
                 <Link href="/about">
                   <Button
                     variant="ghost"
-                    className="text-lg font-semibold rounded-xl w-full hover:bg-neutral-100"
+                    className="w-full rounded-xl text-lg font-semibold hover:bg-neutral-100"
                     size="lg"
                     onClick={() => setOpen(false)} // Close menu on click
                   >
@@ -107,7 +107,7 @@ export default function Navbar({ className }: { className: string }) {
         </div>
       )}
       {/* BUTTON */}
-      <div className="w-36 md:w-40 xl:w-60 hidden md:flex justify-end gap-2 items-center">
+      <div className="hidden w-36 items-center justify-end gap-2 md:flex md:w-40 xl:w-60">
         <Link href="/start">
           <Button
             size="lg"

@@ -28,7 +28,7 @@ const steps_list: stepType[] = [
     description: "What do you want to achieve in your new fitness journey",
     component: null,
     answers: {
-      fitness_goal: "burn_fats",
+      fitness_goal: "build_muscle",
       workout_days: 3,
       activity: "0",
     },

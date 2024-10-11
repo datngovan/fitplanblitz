@@ -11,7 +11,7 @@ export default function Body() {
     normal: "animate-muscle-normal",
   }
 
-  const handleRadioChange = (e) => {
+  const handleRadioChange = (e: any) => {
     setSelectedPart(e.target.value)
   }
 

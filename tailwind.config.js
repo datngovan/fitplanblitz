@@ -76,12 +76,19 @@ module.exports = {
           "0%": { transform: "translate(-50%, -50%) scale(0)" },
           "100%": { transform: "translate(-50%, -50%) scale(1.2)" },
         },
+        "highlight-muscle": {
+          "0%": { fill: "white", opacity: "1" },
+          "50%": { fill: "red", opacity: "0.5" },
+          "100%": { fill: "white", opacity: "1" },
+        },
       },
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
         liquid: "liquid 0.6s ease forwards",
         liquidExpand: "liquidExpand 0.6s ease forwards",
+        "muscle-highlight": "highlight-muscle 2s ease-in-out infinite",
+        "muscle-normal": "none",
       },
       backgroundImage: {
         "gradient-primary": "linear-gradient(45deg, #00C9FF, #92FE9D);",

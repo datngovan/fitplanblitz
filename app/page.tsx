@@ -3,6 +3,7 @@
 import Link from "next/link"
 
 import { Button } from "@/components/ui/button"
+import Body from "@/components/body"
 
 export default function IndexPage() {
   return (
@@ -28,7 +29,7 @@ export default function IndexPage() {
           build strength, lose weight, or enhance your overall well-being, our
           intuitive app has you covered.
         </p>
-
+        <Body/>
         <Link href="/start">
           <Button
             size="lg"

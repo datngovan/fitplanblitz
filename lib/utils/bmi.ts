@@ -9,10 +9,14 @@ type bmiType = {
 type responseType = {
   status: "healthy" | "underweight" | "overweight" | "obese"
   bmi: number
-  underweight: string
-  healthy: string
-  overweight: string
+  bmi_scale: bmiScale
   ideal_weight: number
+}
+
+export type bmiScale = {
+  underweight: number
+  healthy: number
+  overweight: number
 }
 
 export function bmiToKg(bmi: number, height_meters: number): number {
@@ -69,8 +73,10 @@ export default function getBMI({
         ? weight
         : getIdealWeight({ fitness_goal, gender, height }),
     status,
-    underweight: `${Math.floor(bmiToKg(18.5, height_meters))} Kg`,
-    healthy: `${Math.floor(bmiToKg(25, height_meters))} Kg`,
-    overweight: `${Math.floor(bmiToKg(30, height_meters))} Kg`,
+    bmi_scale: {
+      underweight: Math.floor(bmiToKg(18.5, height_meters)),
+      healthy: Math.floor(bmiToKg(25, height_meters)),
+      overweight: Math.floor(bmiToKg(30, height_meters)),
+    },
   }
 }

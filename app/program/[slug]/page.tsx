@@ -3,7 +3,7 @@
 // imports
 
 // import { PrismaClient } from "@prisma/client"
-import { useEffect, useState } from "react"
+import { useCallback, useEffect, useState } from "react"
 import { useRouter } from "next/navigation"
 import { useStepsStore } from "@/store/store"
 import { FaInfoCircle } from "react-icons/fa"
@@ -15,8 +15,6 @@ import getCompositionData from "@/lib/utils/composition"
 import Factors from "@/lib/utils/factor"
 import FatWorkout from "@/lib/utils/fat-workout"
 import MuscleWorkout from "@/lib/utils/muscle-workout"
-import { Card, CardContent } from "@/components/ui/card"
-import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet"
 import {
   Table,
   TableBody,
@@ -28,34 +26,39 @@ import {
 // import CopyLink from "@/components/copy"
 import { Separator } from "@/components/separator"
 
+import bodyMassResult from "./components/body-mass-result"
+import BodyMassResult from "./components/body-mass-result"
+import bodyWeightResult from "./components/body-weight-result"
+import BodyWeightResult from "./components/body-weight-result"
+
 // const prisma = new PrismaClient()
 
 export default function ProgramPage({ params }: { params: { slug: string } }) {
   const [mockData, setMockData] = useState<any>(null) // Store combined answers
   const getAllAnswers = useStepsStore((state) => state.getAllAnswers)
 
-  useEffect(() => {
-    const fetchAllAnswers = async () => {
-      try {
-        const answers = await getAllAnswers() // Get all answers
-        setMockData(answers) // Store in state
-      } catch (error) {
-        console.error("Error fetching answers:", error)
-      }
+  const fetchAllAnswers = useCallback(async () => {
+    try {
+      const answers = await getAllAnswers() // Get all answers
+      setMockData(answers) // Store in state
+    } catch (error) {
+      console.error("Error fetching answers:", error)
     }
-
-    fetchAllAnswers()
   }, [getAllAnswers])
+  useEffect(() => {
+    fetchAllAnswers()
+  }, [fetchAllAnswers])
+  useEffect(() => {
+    console.log("Fetched mockData:", mockData)
+  }, [mockData])
   if (!mockData) return <h1>NO DATA</h1>
-
   // bmi
-  const { bmi, healthy, overweight, status, underweight, ideal_weight } =
-    getBMI({
-      height: mockData.height,
-      weight: mockData.weight,
-      gender: mockData.gender,
-      fitness_goal: mockData.fitness_goal,
-    })
+  const { bmi, bmi_scale, status, ideal_weight } = getBMI({
+    height: mockData.height,
+    weight: mockData.weight,
+    gender: mockData.gender,
+    fitness_goal: mockData.fitness_goal,
+  })
 
   // composition
   const composition = getCompositionData({
@@ -99,184 +102,25 @@ export default function ProgramPage({ params }: { params: { slug: string } }) {
           </span>
         </div>
 
-        {/* */}
+        {/* weight and fat caculation process result */}
         <div className="flex size-full flex-col items-center justify-between gap-10 lg:flex-row">
           {/* weight */}
-          <div className="flex size-full flex-col gap-5">
-            <h3 className="text-xl font-semibold">Weight Assessment</h3>
-            <div>
-              Your current weight ({mockData.overview?.weight} Kg) is considered
-              {status === "healthy" && (
-                <span className="text-xl font-semibold text-green-400">
-                  {" "}
-                  Healthy
-                </span>
-              )}
-              {status === "underweight" && (
-                <span className="text-xl font-semibold text-yellow-400">
-                  {" "}
-                  Underweight
-                </span>
-              )}
-              {status === "overweight" && (
-                <span className="text-xl font-semibold text-yellow-400">
-                  {" "}
-                  Overweight
-                </span>
-              )}
-              {status === "obese" && (
-                <span className="text-xl font-semibold text-orange-400">
-                  {" "}
-                  Obese
-                </span>
-              )}
-            </div>
-
-            {/* chart v2 */}
-            <div className="mb-10 flex w-full flex-col gap-0">
-              <div className="flex h-8 w-full gap-0 rounded-md text-xs font-semibold text-neutral-50 shadow-md">
-                <div className="flex h-full w-[18%] items-center rounded-l-md bg-yellow-400">
-                  <span className="mx-auto text-center">Underweight</span>
-                </div>
-
-                <div className="relative h-full w-[4%] bg-gradient-to-r from-yellow-400 to-green-400">
-                  <div className="absolute -bottom-1 left-2/4 -translate-x-2/4 translate-y-full space-y-1">
-                    <div className="mx-auto h-3 w-0.5 bg-neutral-300" />
-                    <div className="mx-auto w-10 text-center font-normal text-neutral-400">
-                      {underweight}
-                    </div>
-                  </div>
-                </div>
-
-                <div className="flex h-full w-[38%] items-center bg-green-400">
-                  <span className="mx-auto text-center">Healthy</span>
-                </div>
-
-                <div className="relative h-full w-[4%] bg-gradient-to-r from-green-400 to-yellow-400">
-                  <div className="absolute -bottom-1 left-2/4 -translate-x-2/4 translate-y-full space-y-1">
-                    <div className="mx-auto h-3 w-0.5 bg-neutral-300" />
-                    <div className="mx-auto w-10 text-center font-normal text-neutral-400">
-                      {healthy}
-                    </div>
-                  </div>
-                </div>
-
-                <div className="flex h-full w-1/5 items-center bg-yellow-400">
-                  <span className="mx-auto text-center">Overweight</span>
-                </div>
-
-                <div className="relative h-full w-[4%] bg-gradient-to-r from-yellow-400 to-orange-400">
-                  <div className="absolute -bottom-1 left-2/4 -translate-x-2/4 translate-y-full space-y-1">
-                    <div className="mx-auto h-3 w-0.5 bg-neutral-300" />
-                    <div className="mx-auto w-10 text-center font-normal text-neutral-400">
-                      {overweight}
-                    </div>
-                  </div>
-                </div>
-
-                <div className="flex h-full w-1/5 items-center rounded-r-md bg-orange-400">
-                  <span className="mx-auto text-center">Obese</span>
-                </div>
-              </div>
-            </div>
-
-            <Card className="bg-neutral-50 pt-2 text-sm text-neutral-600">
-              <CardContent className="flex flex-col gap-2">
-                <div className="flex items-center gap-2 text-lg font-semibold text-sky-400">
-                  <FaInfoCircle />
-                  Note
-                </div>
-                <p className="flex flex-wrap gap-1">
-                  This result is calculated based on
-                  <Sheet>
-                    <SheetTrigger className="flex items-center gap-1 text-sm text-sky-400 underline-offset-4 hover:underline">
-                      BMI.
-                    </SheetTrigger>
-                    <SheetContent side="left" className="max-w-md">
-                      <div className="flex flex-col gap-6">
-                        <div className="text-xl font-semibold">
-                          Body Mass Index (BMI)
-                        </div>
-                        <div>
-                          bmi = weight
-                          <span className="text-sm text-neutral-400">
-                            {" "}
-                            (in kg){" "}
-                          </span>{" "}
-                          / height ^ 2{" "}
-                        </div>
-                        <div>
-                          bmi = {mockData.weight} / ({mockData.height / 100} ^
-                          2)
-                        </div>
-                        <div>bmi ={bmi}</div>
-                      </div>
-                    </SheetContent>
-                  </Sheet>
-                  BMI provides information on your weight status but ignores
-                  factors like muscle mass and body composition. Two people with
-                  the same BMI can have different health profiles.
-                </p>
-              </CardContent>
-            </Card>
-          </div>
+          <BodyWeightResult
+            status={status}
+            weight={mockData.weight}
+            height={mockData.height}
+            bmi={bmi}
+            bmi_scale={bmi_scale}
+          />
 
           <Separator orientation="vertical" className="hidden h-80 lg:block" />
 
           {/* composition */}
-          <div className="flex size-full flex-col gap-5">
-            <h3 className="text-xl font-semibold">Body Composition Analysis</h3>
-            <div className="flex items-center gap-2">
-              Your current body composition ({composition.fat_percentage}
-              %) is considered
-              {composition.is_healthy ? (
-                <span className="text-xl font-semibold text-green-400">
-                  Healthy
-                </span>
-              ) : (
-                <span className="text-xl font-semibold text-yellow-400">
-                  Overweight
-                </span>
-              )}
-            </div>
-
-            {/* chart v2 */}
-            <div className="mb-10 flex w-full flex-col gap-0">
-              <div className="flex h-8 w-full gap-0 rounded-md text-xs font-semibold text-neutral-50 shadow-md">
-                <div className="flex h-full w-[48%] items-center rounded-l-md bg-green-400">
-                  <span className="mx-auto text-center">Healthy</span>
-                </div>
-
-                <div className="relative h-full w-[4%] bg-gradient-to-r from-green-400 to-yellow-400">
-                  <div className="absolute -bottom-1 left-2/4 -translate-x-2/4 translate-y-full space-y-1">
-                    <div className="mx-auto h-3 w-0.5 bg-neutral-300" />
-                    <div className="mx-auto w-10 text-center font-normal text-neutral-400">
-                      {composition.max_value}%
-                    </div>
-                  </div>
-                </div>
-
-                <div className="flex h-full w-[48%] items-center rounded-r-md bg-yellow-400">
-                  <span className="mx-auto text-center">Overweight</span>
-                </div>
-              </div>
-            </div>
-
-            <Card className="bg-neutral-50 pt-3 text-sm text-neutral-600">
-              <CardContent className="flex flex-col gap-2">
-                <div className="flex items-center gap-2 text-lg font-semibold text-sky-400">
-                  <FaInfoCircle />
-                  Note
-                </div>
-                <p>
-                  The current health result of your body composition is
-                  calculated considering your gender and age. This personalized
-                  approach helps provide a more accurate assessment of your
-                  specific health condition.
-                </p>
-              </CardContent>
-            </Card>
-          </div>
+          <BodyMassResult
+            fat_percentage={composition.fat_percentage}
+            is_healthy={composition.is_healthy}
+            max_value={composition.max_value}
+          />
         </div>
 
         {/* suggested weight and fat */}
@@ -648,9 +492,7 @@ export default function ProgramPage({ params }: { params: { slug: string } }) {
           </div>
         </div>
       </div>
-      <div className="flex">
-          
-      </div>
+      <div className="flex"></div>
       {/* share */}
       {/* <CopyLink params={params} /> */}
     </div>

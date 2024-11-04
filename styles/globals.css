@@ -80,3 +80,18 @@
     font-feature-settings: "rlig" 1, "calt" 1;
   }
 }
+
+.custom-gradient {
+  @apply h-full;
+  background: linear-gradient(
+    to right,
+    #fdd835,
+    #fdd835 25%,
+    #66bb6a 25%,
+    #66bb6a 50%,
+    #ffeb3b 50%,
+    #ffeb3b 75%,
+    #fb8c00 75%,
+    #fb8c00
+  );
+}

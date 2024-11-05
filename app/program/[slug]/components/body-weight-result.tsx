@@ -3,6 +3,7 @@ import { FaInfoCircle } from "react-icons/fa"
 
 import { bmiScale } from "@/lib/utils/bmi"
 import { Card, CardContent } from "@/components/ui/card"
+import { GradientBar } from "@/components/ui/gardient-bar"
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet"
 
 type Props = {
@@ -49,8 +50,33 @@ function BodyWeightResult({ weight, height, bmi_scale, bmi, status }: Props) {
         </div>
 
         {/* chart v2 */}
-        <div className="mb-10 flex w-full flex-col gap-0">
-          <div className="flex h-8 w-full gap-0 rounded-md text-[0.6rem] md:text-xs font-semibold text-neutral-50 shadow-md">
+        <div className="mb-10 flex w-full flex-col gap-0 font-semibold">
+          <GradientBar
+            className="text-lg"
+            colors={[
+              {
+                w: 20,
+                color: "rgba(250,204,21,1)",
+                label: "Underweight",
+                measurementValue: `${bmi_scale.underweight}Kg`,
+              },
+              {
+                w: 40,
+                color: "rgba(74,222,128,1)",
+                label: "Healthy",
+                measurementValue: `${bmi_scale.healthy}Kg`,
+              },
+              {
+                w: 20,
+                color: "rgba(250,204,21,1)",
+                label: "Overweight",
+                measurementValue: `${bmi_scale.overweight}Kg`,
+              },
+              { w: 20, color: "rgba(251,146,60,1)", label: "Obese" },
+            ]}
+            height={32}
+          />
+          {/* <div className="flex h-8 w-full gap-0 rounded-md text-[0.6rem] md:text-xs font-semibold text-neutral-50 shadow-md">
             <div className="flex h-full w-[18%] items-center rounded-l-md bg-yellow-400">
               <span className="mx-auto text-center">Underweight</span>
             </div>
@@ -93,7 +119,7 @@ function BodyWeightResult({ weight, height, bmi_scale, bmi, status }: Props) {
             <div className="flex h-full w-1/5 items-center rounded-r-md bg-orange-400">
               <span className="mx-auto text-center">Obese</span>
             </div>
-          </div>
+          </div> */}
         </div>
 
         <Card className="bg-neutral-50 pt-2 text-sm text-neutral-600">

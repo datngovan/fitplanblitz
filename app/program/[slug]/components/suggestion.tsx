@@ -1,3 +1,5 @@
+import { Separator } from "@/components/separator"
+
 export default function Suggestion() {
   return (
     <>

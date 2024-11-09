@@ -3,9 +3,6 @@
 import Link from "next/link"
 
 import { Button } from "@/components/ui/button"
-import { GradientBar } from "@/components/ui/gardient-bar"
-import Shade from "@/components/ui/shade"
-import Triangle from "@/components/ui/triangle"
 import Body from "@/components/body"
 
 export default function IndexPage() {
@@ -40,36 +37,6 @@ export default function IndexPage() {
             Get Started
           </Button>
         </Link>
-        <Triangle a={100} b={80} c={120} />{" "}
-        <div
-          className="flex flex-col"
-          style={{
-            width: "100%",
-            margin: "0 auto",
-            border: "1px solid #ccc",
-          }}
-        >
-          <GradientBar
-            colors={[
-              { w: 20, color: "rgba(250,204,21,1)" },
-              { w: 40, color: "rgba(74,222,128,1)" },
-              { w: 20, color: "rgba(250,204,21,1)" },
-              { w: 20, color: "rgba(251,146,60,1)" },
-            ]}
-            height={20}
-          />
-        </div>
-        <div className="h-[50px]">
-          <Shade
-            labelColor="blue"
-            colors={[
-              { w: 20, color: "rgba(250,204,21,1)" },
-              { w: 40, color: "rgba(74,222,128,1)" },
-              { w: 20, color: "rgba(250,204,21,1)" },
-              { w: 20, color: "rgba(251,146,60,1)" },
-            ]}
-          />
-        </div>
       </div>
     </div>
   )

@@ -1,12 +1,12 @@
 /* eslint-disable max-len */
-type bmiType = {
+export type BMIInput = {
   height: number
   weight: number
   gender: "M" | "F"
   fitness_goal: "build_muscle" | "burn_fats" | "endurance" | "cardiovascular"
 }
 
-type responseType = {
+export type BMIResult = {
   status: "healthy" | "underweight" | "overweight" | "obese"
   bmi: number
   bmi_scale: bmiScale
@@ -56,7 +56,7 @@ export default function getBMI({
   weight,
   gender,
   fitness_goal,
-}: bmiType): responseType {
+}: BMIInput): BMIResult {
   // calculate BMI
   const height_meters = height / 100
   const bmi = Math.floor(weight / (height_meters * height_meters))

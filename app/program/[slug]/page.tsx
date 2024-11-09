@@ -25,21 +25,23 @@ import {
 } from "@/components/ui/table"
 // import CopyLink from "@/components/copy"
 import { Separator } from "@/components/separator"
+import useProgramCalculations, {
+  OverviewInput,
+  OverviewResult,
+} from "@/app/hook/useProgramCalculation"
 
-import bodyMassResult from "./components/body-mass-result"
 import BodyMassResult from "./components/body-mass-result"
-import bodyWeightResult from "./components/body-weight-result"
 import BodyWeightResult from "./components/body-weight-result"
 
 // const prisma = new PrismaClient()
 
 export default function ProgramPage({ params }: { params: { slug: string } }) {
-  const [mockData, setMockData] = useState<any>(null) // Store combined answers
+  const [mockData, setMockData] = useState<any>() // Store combined answers
   const getAllAnswers = useStepsStore((state) => state.getAllAnswers)
-
   const fetchAllAnswers = useCallback(async () => {
     try {
       const answers = await getAllAnswers() // Get all answers
+      console.log("answers:", answers)
       setMockData(answers) // Store in state
     } catch (error) {
       console.error("Error fetching answers:", error)
@@ -51,39 +53,41 @@ export default function ProgramPage({ params }: { params: { slug: string } }) {
   useEffect(() => {
     console.log("Fetched mockData:", mockData)
   }, [mockData])
+  const { bmi_result, composistion_result, calories_result } =
+    useProgramCalculations(mockData)
   if (!mockData) return <h1>NO DATA</h1>
-  // bmi
-  const { bmi, bmi_scale, status, ideal_weight } = getBMI({
-    height: mockData.height,
-    weight: mockData.weight,
-    gender: mockData.gender,
-    fitness_goal: mockData.fitness_goal,
-  })
+  // // bmi
+  // const { bmi, bmi_scale, status, ideal_weight } = getBMI({
+  //   height: mockData.height,
+  //   weight: mockData.weight,
+  //   gender: mockData.gender,
+  //   fitness_goal: mockData.fitness_goal,
+  // })
 
-  // composition
-  const composition = getCompositionData({
-    age: mockData.age,
-    body_type: mockData.body_type,
-    gender: mockData.gender,
-    height: mockData.height,
-    hip: mockData.hip,
-    is_fat_accurate: mockData.is_fat_accurate,
-    neck: mockData.neck,
-    waist: mockData.waist,
-    fitness_goal: mockData.fitness_goal,
-  })
+  // // composition
+  // const composition = getCompositionData({
+  //   age: mockData.age,
+  //   body_type: mockData.body_type,
+  //   gender: mockData.gender,
+  //   height: mockData.height,
+  //   hip: mockData.hip,
+  //   is_fat_accurate: mockData.is_fat_accurate,
+  //   neck: mockData.neck,
+  //   waist: mockData.waist,
+  //   fitness_goal: mockData.fitness_goal,
+  // })
 
-  // calories
-  const calory_data = calculateCalories({
-    activity: mockData.activity,
-    age: mockData.age,
-    current_weight: mockData.weight,
-    fitness_goal: mockData.fitness_goal,
-    gender: mockData.gender,
-    height: mockData.height,
-    ideal_weight,
-    workout_days: mockData.workout_days,
-  })
+  // // calories
+  // const calories_result = calculateCalories({
+  //   activity: mockData.activity,
+  //   age: mockData.age,
+  //   current_weight: mockData.weight,
+  //   fitness_goal: mockData.fitness_goal,
+  //   gender: mockData.gender,
+  //   height: mockData.height,
+  //   ideal_weight,
+  //   workout_days: mockData.workout_days,
+  // })
 
   return (
     <div className="text-md mx-auto flex flex-col gap-20 px-6 py-10 xl:w-3/4">
@@ -103,23 +107,23 @@ export default function ProgramPage({ params }: { params: { slug: string } }) {
         </div>
 
         {/* weight and fat caculation process result */}
-        <div className="flex size-full flex-col items-center justify-between gap-10 lg:flex-row">
+        <div className="flex size-full flex-col justify-between gap-10 lg:flex-row">
           {/* weight */}
           <BodyWeightResult
             status={status}
             weight={mockData.weight}
             height={mockData.height}
-            bmi={bmi}
-            bmi_scale={bmi_scale}
+            bmi={bmi_result.bmi}
+            bmi_scale={bmi_result.bmi_scale}
           />
 
           <Separator orientation="vertical" className="hidden h-80 lg:block" />
 
           {/* composition */}
           <BodyMassResult
-            fat_percentage={composition.fat_percentage}
-            is_healthy={composition.is_healthy}
-            max_value={composition.max_value}
+            fat_percentage={composistion_result.fat_percentage}
+            is_healthy={composistion_result.is_healthy}
+            max_value={composistion_result.max_value}
           />
         </div>
 
@@ -129,10 +133,10 @@ export default function ProgramPage({ params }: { params: { slug: string } }) {
           <div className="flex size-full flex-col gap-5">
             <h3 className="text-xl font-semibold">Suggested Target Weight</h3>
             <div className="text-3xl font-semibold text-emerald-500">
-              {ideal_weight} Kg
+              {bmi_result.ideal_weight} Kg
             </div>
 
-            {ideal_weight === mockData.weight &&
+            {bmi_result.ideal_weight === mockData.weight &&
               mockData.fitness_goal !== "build_muscle" && (
                 <p>
                   Based on D.R. Miller&apos;s formula, your current weight is
@@ -140,20 +144,20 @@ export default function ProgramPage({ params }: { params: { slug: string } }) {
                 </p>
               )}
 
-            {ideal_weight !== mockData.weight &&
+            {bmi_result.ideal_weight !== mockData.weight &&
               mockData.fitness_goal !== "build_muscle" && (
                 <p>
                   Based on D.R. Miller&apos;s formula and your fitness goal, the
-                  ideal weight you can achieve is {ideal_weight} Kg.
+                  ideal weight you can achieve is {bmi_result.ideal_weight} Kg.
                 </p>
               )}
 
             {mockData.fitness_goal === "build_muscle" && (
               <p>
                 Since your fitness goal is to build muscle, you should aim for{" "}
-                {ideal_weight} Kg to look muscular. Keep in mind that weight
-                alone is not enough, body fat percentage is also an important
-                factor.
+                {bmi_result.ideal_weight} Kg to look muscular. Keep in mind that
+                weight alone is not enough, body fat percentage is also an
+                important factor.
               </p>
             )}
           </div>
@@ -166,12 +170,14 @@ export default function ProgramPage({ params }: { params: { slug: string } }) {
               Suggested Body Composition
             </h3>
             <div className="text-3xl font-semibold text-emerald-500">
-              {composition.ideal_fat <= composition.fat_percentage
-                ? composition.ideal_fat
-                : composition.fat_percentage}
+              {composistion_result.ideal_fat <=
+              composistion_result.fat_percentage
+                ? composistion_result.ideal_fat
+                : composistion_result.fat_percentage}
               %
             </div>
-            {composition.ideal_fat >= composition.fat_percentage ? (
+            {composistion_result.ideal_fat >=
+            composistion_result.fat_percentage ? (
               <p>
                 Your current body fat percentage is already perfect, so our job
                 is to ensure that you maintain this body composition.
@@ -180,7 +186,7 @@ export default function ProgramPage({ params }: { params: { slug: string } }) {
               <p>
                 Based on the ideal body fat percentages according to Jackson &
                 Pollock and your fitness goal, the ideal body composition to
-                work with is {composition.ideal_fat}%.
+                work with is {composistion_result.ideal_fat}%.
               </p>
             )}
           </div>
@@ -193,24 +199,31 @@ export default function ProgramPage({ params }: { params: { slug: string } }) {
           <h3 className="text-xl font-semibold">Summary</h3>
           <p>
             In conclusion, your goal is to
-            {mockData.weight > ideal_weight &&
+            {mockData.weight > bmi_result.ideal_weight &&
               ` lose ${
-                mockData.weight - ideal_weight
-              } Kg to reach the suggested ideal weight (${ideal_weight} kg), `}
-            {mockData.weight < ideal_weight &&
+                mockData.weight - bmi_result.ideal_weight
+              } Kg to reach the suggested ideal weight (${
+                bmi_result.ideal_weight
+              } kg), `}
+            {mockData.weight < bmi_result.ideal_weight &&
               ` gain ${
-                ideal_weight - mockData.weight
-              } Kg to reach the suggested ideal weight (${ideal_weight} kg), `}
-            {mockData.weight === ideal_weight &&
+                bmi_result.ideal_weight - mockData.weight
+              } Kg to reach the suggested ideal weight (${
+                bmi_result.ideal_weight
+              } kg), `}
+            {mockData.weight === bmi_result.ideal_weight &&
               " maintain your current weight, "}
             and for the body composition, you should
-            {composition.fat_percentage > composition.ideal_fat &&
+            {composistion_result.fat_percentage >
+              composistion_result.ideal_fat &&
               ` burn ${
-                composition.fat_percentage - composition.ideal_fat
-              } % of body fat to achieve the suggested ideal body composition (${
-                composition.ideal_fat
+                composistion_result.fat_percentage -
+                composistion_result.ideal_fat
+              } % of body fat to achieve the suggested ideal body composistion (${
+                composistion_result.ideal_fat
               } %).`}
-            {composition.fat_percentage <= composition.ideal_fat &&
+            {composistion_result.fat_percentage <=
+              composistion_result.ideal_fat &&
               " maintain your current body fat percentage."}
           </p>
         </div>
@@ -241,17 +254,21 @@ export default function ProgramPage({ params }: { params: { slug: string } }) {
         <div className="flex size-full flex-col gap-5">
           <h3 className="text-xl font-semibold">Daily Calorie Requirement</h3>
           <div className="text-3xl font-semibold text-emerald-500">
-            {ideal_weight < mockData.weight && calory_data.lose_05}
-            {ideal_weight > mockData.weight && calory_data.gain_05}
-            {ideal_weight === mockData.weight && calory_data.calories} Calories
+            {bmi_result.ideal_weight < mockData.weight &&
+              calories_result.lose_05}
+            {bmi_result.ideal_weight > mockData.weight &&
+              calories_result.gain_05}
+            {bmi_result.ideal_weight === mockData.weight &&
+              calories_result.calories}{" "}
+            Calories
           </div>
           <p>
-            {ideal_weight < mockData.weight &&
-              `To lose 0.5 kg per week, you need to consume ${calory_data.lose_05} calories per day.`}
-            {ideal_weight > mockData.weight &&
-              `To gain 0.5 kg per week, you need to consume ${calory_data.gain_05} calories per day.`}
-            {ideal_weight === mockData.weight &&
-              `To maintain your current weight, you need to consume ${calory_data.calories} calories per day.`}
+            {bmi_result.ideal_weight < mockData.weight &&
+              `To lose 0.5 kg per week, you need to consume ${calories_result.lose_05} calories per day.`}
+            {bmi_result.ideal_weight > mockData.weight &&
+              `To gain 0.5 kg per week, you need to consume ${calories_result.gain_05} calories per day.`}
+            {bmi_result.ideal_weight === mockData.weight &&
+              `To maintain your current weight, you need to consume ${calories_result.calories} calories per day.`}
           </p>
 
           {/* chart v2 */}
@@ -265,7 +282,7 @@ export default function ProgramPage({ params }: { params: { slug: string } }) {
                 <div className="absolute -bottom-1 left-2/4 -translate-x-2/4 translate-y-full space-y-1">
                   <div className="mx-auto h-3 w-0.5 bg-neutral-300" />
                   <div className="mx-auto w-10 text-center font-normal text-neutral-400">
-                    {calory_data.lose_1} calories
+                    {calories_result.lose_1} calories
                   </div>
                 </div>
               </div>
@@ -278,7 +295,7 @@ export default function ProgramPage({ params }: { params: { slug: string } }) {
                 <div className="absolute -bottom-1 left-2/4 -translate-x-2/4 translate-y-full space-y-1">
                   <div className="mx-auto h-3 w-0.5 bg-neutral-300" />
                   <div className="mx-auto w-10 text-center font-normal text-neutral-400">
-                    {calory_data.lose_05} calories
+                    {calories_result.lose_05} calories
                   </div>
                 </div>
               </div>
@@ -291,7 +308,7 @@ export default function ProgramPage({ params }: { params: { slug: string } }) {
                 <div className="absolute -bottom-1 left-2/4 -translate-x-2/4 translate-y-full space-y-1">
                   <div className="mx-auto h-3 w-0.5 bg-neutral-300" />
                   <div className="mx-auto w-10 text-center font-normal text-neutral-400">
-                    {calory_data.lose_025} calories
+                    {calories_result.lose_025} calories
                   </div>
                 </div>
               </div>
@@ -304,7 +321,7 @@ export default function ProgramPage({ params }: { params: { slug: string } }) {
                 <div className="absolute -bottom-1 left-2/4 -translate-x-2/4 translate-y-full space-y-1">
                   <div className="mx-auto h-3 w-0.5 bg-neutral-300" />
                   <div className="mx-auto w-10 text-center font-normal text-neutral-400">
-                    {calory_data.calories} calories
+                    {calories_result.calories} calories
                   </div>
                 </div>
               </div>
@@ -317,7 +334,7 @@ export default function ProgramPage({ params }: { params: { slug: string } }) {
                 <div className="absolute -bottom-1 left-2/4 -translate-x-2/4 translate-y-full space-y-1">
                   <div className="mx-auto h-3 w-0.5 bg-neutral-300" />
                   <div className="mx-auto w-10 text-center font-normal text-neutral-400">
-                    {calory_data.gain_025} calories
+                    {calories_result.gain_025} calories
                   </div>
                 </div>
               </div>
@@ -330,7 +347,7 @@ export default function ProgramPage({ params }: { params: { slug: string } }) {
                 <div className="absolute -bottom-1 left-2/4 -translate-x-2/4 translate-y-full space-y-1">
                   <div className="mx-auto h-3 w-0.5 bg-neutral-300" />
                   <div className="mx-auto w-10 text-center font-normal text-neutral-400">
-                    {calory_data.gain_05} calories
+                    {calories_result.gain_05} calories
                   </div>
                 </div>
               </div>
@@ -343,7 +360,7 @@ export default function ProgramPage({ params }: { params: { slug: string } }) {
                 <div className="absolute -bottom-1 left-2/4 -translate-x-2/4 translate-y-full space-y-1 rounded-r-md">
                   <div className="mx-auto h-3 w-0.5 bg-neutral-300" />
                   <div className="mx-auto w-10 text-center font-normal text-neutral-400">
-                    {calory_data.gain_1} calories
+                    {calories_result.gain_1} calories
                   </div>
                 </div>
               </div>
@@ -361,37 +378,37 @@ export default function ProgramPage({ params }: { params: { slug: string } }) {
             <TableBody>
               <TableRow>
                 <TableCell className="font-medium">-1 Kg/week</TableCell>
-                <TableCell>{calory_data.lose_1}</TableCell>
+                <TableCell>{calories_result.lose_1}</TableCell>
               </TableRow>
 
               <TableRow>
                 <TableCell className="font-medium">-0.5 Kg/week</TableCell>
-                <TableCell>{calory_data.lose_05}</TableCell>
+                <TableCell>{calories_result.lose_05}</TableCell>
               </TableRow>
 
               <TableRow>
                 <TableCell className="font-medium">-0.25 Kg/week</TableCell>
-                <TableCell>{calory_data.lose_025}</TableCell>
+                <TableCell>{calories_result.lose_025}</TableCell>
               </TableRow>
 
               <TableRow>
                 <TableCell className="font-medium">Maintain Weight</TableCell>
-                <TableCell>{calory_data.calories}</TableCell>
+                <TableCell>{calories_result.calories}</TableCell>
               </TableRow>
 
               <TableRow>
                 <TableCell className="font-medium">+0.25 Kg/week</TableCell>
-                <TableCell>{calory_data.gain_025}</TableCell>
+                <TableCell>{calories_result.gain_025}</TableCell>
               </TableRow>
 
               <TableRow>
                 <TableCell className="font-medium">+0.5 Kg/week</TableCell>
-                <TableCell>{calory_data.gain_05}</TableCell>
+                <TableCell>{calories_result.gain_05}</TableCell>
               </TableRow>
 
               <TableRow>
                 <TableCell className="font-medium">+1 Kg/week</TableCell>
-                <TableCell>{calory_data.gain_1}</TableCell>
+                <TableCell>{calories_result.gain_1}</TableCell>
               </TableRow>
             </TableBody>
           </Table>
@@ -404,7 +421,7 @@ export default function ProgramPage({ params }: { params: { slug: string } }) {
               Daily Protein Requirements
             </h3>
             <div className="text-3xl font-semibold text-emerald-500">
-              {calory_data.protein_1}g to {calory_data.protein_2}g
+              {calories_result.protein_1}g to {calories_result.protein_2}g
             </div>
             <p>
               {mockData.fitness_goal === "build_muscle" &&
@@ -436,7 +453,7 @@ export default function ProgramPage({ params }: { params: { slug: string } }) {
               Daily Carbohydrate Requirements
             </h3>
             <div className="text-3xl font-semibold text-emerald-500">
-              {calory_data.carbs_1}g to {calory_data.carbs_2}g
+              {calories_result.carbs_1}g to {calories_result.carbs_2}g
             </div>
             <p>
               {mockData.fitness_goal === "build_muscle" &&
@@ -466,7 +483,7 @@ export default function ProgramPage({ params }: { params: { slug: string } }) {
           <div className="flex size-full flex-col gap-5">
             <h3 className="text-xl font-semibold">Daily Fat Requirements</h3>
             <div className="text-3xl font-semibold text-emerald-500">
-              {calory_data.fats_1}g to {calory_data.fats_2}g
+              {calories_result.fats_1}g to {calories_result.fats_2}g
             </div>
             <p>
               {mockData.fitness_goal === "build_muscle" &&

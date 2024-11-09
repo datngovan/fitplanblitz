@@ -11,7 +11,7 @@ type Props = {
 }
 function BodyMassResult({ fat_percentage, is_healthy, max_value }: Props) {
   return (
-    <div className="flex size-full flex-col gap-5">
+    <div className="flex w-full flex-col gap-5">
       <h3 className="text-xl font-semibold">Body Composition Analysis</h3>
       <div className="flex items-baseline gap-2">
         <div>
@@ -43,10 +43,10 @@ function BodyMassResult({ fat_percentage, is_healthy, max_value }: Props) {
               label: "Overweight",
             },
           ]}
-          height={36}
+          height={32}
         />
       </div>
-      <Card className="bg-neutral-50 pt-3 text-sm text-neutral-600">
+      <Card className="bg-neutral-50 pt-3 text-sm text-neutral-600 grow">
         <CardContent className="flex flex-col gap-2">
           <div className="flex items-center gap-2 text-lg font-semibold text-sky-400">
             <FaInfoCircle />

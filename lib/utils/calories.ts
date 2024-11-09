@@ -1,13 +1,4 @@
-export default function calculateCalories({
-  current_weight,
-  ideal_weight,
-  height,
-  age,
-  gender,
-  activity,
-  workout_days,
-  fitness_goal,
-}: {
+export type CaloriesInput = {
   current_weight: number
   ideal_weight: number
   height: number
@@ -16,7 +7,8 @@ export default function calculateCalories({
   gender: "M" | "F"
   activity: string
   fitness_goal: "burn_fats" | "build_muscle" | "cardiovascular"
-}): {
+}
+export type CaloriesResult = {
   calories: number
   description: string
   lose_025: number
@@ -31,7 +23,17 @@ export default function calculateCalories({
   fats_2: number
   carbs_1: number
   carbs_2: number
-} {
+}
+export default function calculateCalories({
+  current_weight,
+  ideal_weight,
+  height,
+  age,
+  gender,
+  activity,
+  workout_days,
+  fitness_goal,
+}: CaloriesInput): CaloriesResult {
   // caculate BMR
   let bmr = 0
   if (gender === "M") bmr = 10 * current_weight + 6.25 * height - 5 * age + 5

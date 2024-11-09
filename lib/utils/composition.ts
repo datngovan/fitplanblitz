@@ -1,5 +1,31 @@
-/* eslint-disable max-len */
-type dataType = {
+export type ComposistionInput = {
+  is_fat_accurate: boolean
+  neck: number
+  waist: number
+  height: number
+  hip: number
+  gender: "M" | "F"
+  age: number
+  fitness_goal: "build_muscle" | "burn_fats" | "endurance" | "cardiovascular"
+  body_type:
+    | "ultralean"
+    | "verylean"
+    | "lean"
+    | "moderatelylean"
+    | "healthy"
+    | "moderatelyoverweight"
+    | "overweight"
+    | "obese"
+}
+
+export type ComposistionResult = {
+  fat_percentage: number
+  is_healthy: boolean
+  max_value: number
+  ideal_fat: number
+}
+
+type BodyMeasurement = {
   neck: number
   waist: number
   height: number
@@ -13,7 +39,7 @@ export function calculateFat({
   hip,
   height,
   gender,
-}: dataType): number {
+}: BodyMeasurement): number {
   if (gender === "M") {
     return Math.floor(
       495 /
@@ -104,30 +130,7 @@ export default function getCompositionData({
   age,
   body_type,
   fitness_goal,
-}: {
-  is_fat_accurate: boolean
-  neck: number
-  waist: number
-  height: number
-  hip: number
-  gender: "M" | "F"
-  age: number
-  fitness_goal: "build_muscle" | "burn_fats" | "endurance" | "cardiovascular"
-  body_type:
-    | "ultralean"
-    | "verylean"
-    | "lean"
-    | "moderatelylean"
-    | "healthy"
-    | "moderatelyoverweight"
-    | "overweight"
-    | "obese"
-}): {
-  fat_percentage: number
-  is_healthy: boolean
-  max_value: number
-  ideal_fat: number
-} {
+}: ComposistionInput): ComposistionResult {
   let fat_percentage = 0
   if (is_fat_accurate) {
     fat_percentage = calculateFat({

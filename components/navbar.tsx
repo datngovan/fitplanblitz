@@ -18,6 +18,7 @@ import { Button } from "./ui/button"
 
 export default function Navbar({ className }: { className: string }) {
   const [open, setOpen] = useState(false)
+
   return (
     <div
       className={`flex items-center justify-between py-6 ${className} w-full`}
@@ -31,20 +32,14 @@ export default function Navbar({ className }: { className: string }) {
 
       {/* BURGER MENU FOR SMALL SCREENS */}
       <div className="md:hidden">
-        <button
-          onClick={() => {
-            setOpen(!open)
-            console.log(open)
-          }}
-          aria-label="Toggle Menu"
-        >
-          {open ? <X className="size-6" /> : <Menu className="size-6" />}
+        <button onClick={() => setOpen(!open)} aria-label="Toggle Menu">
+          {open ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
         </button>
       </div>
-      {/* LINKS */}
-      <NavigationMenu className="mx-auto hidden w-2/6 justify-between md:flex">
+
+      {/* NAVIGATION LINKS FOR DESKTOP */}
+      <NavigationMenu className="hidden md:flex mx-auto w-2/6 justify-between">
         <NavigationMenuList>
-          {/* HOME */}
           <NavigationMenuItem>
             <Link href="/">
               <Button
@@ -56,57 +51,67 @@ export default function Navbar({ className }: { className: string }) {
               </Button>
             </Link>
           </NavigationMenuItem>
-
-          {/* ABOUT */}
           <NavigationMenuItem>
-            <Link href="/about">
+            <Link href="/program/result">
               <Button
                 variant="ghost"
                 className="rounded-xl text-lg font-semibold hover:bg-neutral-100"
                 size="lg"
               >
-                About
+                Result
               </Button>
             </Link>
           </NavigationMenuItem>
         </NavigationMenuList>
       </NavigationMenu>
-      {open && (
-        <div className="absolute left-0 top-16 w-full bg-white shadow-lg md:hidden">
-          <NavigationMenuBurger>
-            <NavigationMenuList className="flex flex-col items-center space-y-4 p-4">
-              {/* HOME */}
-              <NavigationMenuItem>
-                <Link href="/">
-                  <Button
-                    variant="ghost"
-                    className="w-full rounded-xl text-lg font-semibold hover:bg-neutral-100"
-                    size="lg"
-                    onClick={() => setOpen(false)} // Close menu on click
-                  >
-                    Home
-                  </Button>
-                </Link>
-              </NavigationMenuItem>
 
-              {/* ABOUT */}
-              <NavigationMenuItem>
-                <Link href="/about">
-                  <Button
-                    variant="ghost"
-                    className="w-full rounded-xl text-lg font-semibold hover:bg-neutral-100"
-                    size="lg"
-                    onClick={() => setOpen(false)} // Close menu on click
-                  >
-                    About
-                  </Button>
-                </Link>
-              </NavigationMenuItem>
-            </NavigationMenuList>
-          </NavigationMenuBurger>
+      {/* MOBILE MENU */}
+      {open && (
+        <div className="fixed inset-0 z-50 flex justify-end md:hidden">
+          {/* Blurred background */}
+          <div
+            className="absolute inset-0 bg-black/50 backdrop-blur-sm"
+            onClick={() => setOpen(false)}
+          />
+
+          {/* Sidebar menu */}
+          <div className="relative w-2/3 h-full bg-white shadow-lg p-6">
+            <button
+              onClick={() => setOpen(false)}
+              aria-label="Close Menu"
+              className="absolute top-4 right-4"
+            >
+              <X className="h-6 w-6" />
+            </button>
+            <NavigationMenuBurger>
+              <NavigationMenuList className="space-y-6 mt-20">
+                <NavigationMenuItem>
+                  <Link href="/" onClick={() => setOpen(false)}>
+                    <Button
+                      variant="ghost"
+                      className="w-full font-semibold text-3xl"
+                    >
+                      Home
+                    </Button>
+                  </Link>
+                </NavigationMenuItem>
+                <NavigationMenuItem>
+                  <Link href="/program/result" onClick={() => setOpen(false)}>
+                    <Button
+                      variant="ghost"
+                      className="w-full font-semibold text-3xl"
+                    >
+                      Result
+                    </Button>
+                  </Link>
+                </NavigationMenuItem>
+              </NavigationMenuList>
+            </NavigationMenuBurger>
+          </div>
         </div>
       )}
-      {/* BUTTON */}
+
+      {/* BUTTON & THEME TOGGLE FOR DESKTOP */}
       <div className="hidden w-36 items-center justify-end gap-2 md:flex md:w-40 xl:w-60">
         <Link href="/start">
           <Button

@@ -17,7 +17,7 @@ function BodyWeightResult({ weight, height, bmi_scale, bmi, status }: Props) {
   return (
     <>
       {/* weight */}
-      <div className="flex size-full flex-col gap-5">
+      <div className="flex w-full flex-col gap-5">
         <h3 className="text-xl font-semibold">Weight Assessment</h3>
         <div className="flex items-baseline gap-2">
           <div>
@@ -76,50 +76,6 @@ function BodyWeightResult({ weight, height, bmi_scale, bmi, status }: Props) {
             ]}
             height={32}
           />
-          {/* <div className="flex h-8 w-full gap-0 rounded-md text-[0.6rem] md:text-xs font-semibold text-neutral-50 shadow-md">
-            <div className="flex h-full w-[18%] items-center rounded-l-md bg-yellow-400">
-              <span className="mx-auto text-center">Underweight</span>
-            </div>
-
-            <div className="relative h-full w-[4%] bg-gradient-to-r from-yellow-400 to-green-400">
-              <div className="absolute -bottom-1 left-2/4 -translate-x-2/4 translate-y-full space-y-1">
-                <div className="mx-auto h-3 w-0.5 bg-neutral-300" />
-                <div className="mx-auto w-10 text-center font-normal text-neutral-400">
-                  {bmi_scale.underweight}Kg
-                </div>
-              </div>
-            </div>
-
-            <div className="flex h-full w-[38%] items-center bg-green-400">
-              <span className="mx-auto text-center">Healthy</span>
-            </div>
-
-            <div className="relative h-full w-[4%] bg-gradient-to-r from-green-400 to-yellow-400">
-              <div className="absolute -bottom-1 left-2/4 -translate-x-2/4 translate-y-full space-y-1">
-                <div className="mx-auto h-3 w-0.5 bg-neutral-300" />
-                <div className="mx-auto w-10 text-center font-normal text-neutral-400">
-                  {bmi_scale.healthy}Kg
-                </div>
-              </div>
-            </div>
-
-            <div className="flex h-full w-1/5 items-center bg-yellow-400">
-              <span className="mx-auto text-center">Overweight</span>
-            </div>
-
-            <div className="relative h-full w-[4%] bg-gradient-to-r from-yellow-400 to-orange-400">
-              <div className="absolute -bottom-1 left-2/4 -translate-x-2/4 translate-y-full space-y-1">
-                <div className="mx-auto h-3 w-0.5 bg-neutral-300" />
-                <div className="mx-auto w-10 text-center font-normal text-neutral-400">
-                  {bmi_scale.overweight}Kg
-                </div>
-              </div>
-            </div>
-
-            <div className="flex h-full w-1/5 items-center rounded-r-md bg-orange-400">
-              <span className="mx-auto text-center">Obese</span>
-            </div>
-          </div> */}
         </div>
 
         <Card className="bg-neutral-50 pt-2 text-sm text-neutral-600">

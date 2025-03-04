@@ -19,6 +19,26 @@ export type bmiScale = {
   overweight: number
 }
 
+//Default values for BMIInput
+export const defaultBMIInput: BMIInput = {
+  height: 170, // Default height in cm
+  weight: 70, // Default weight in kg
+  gender: "M",
+  fitness_goal: "build_muscle",
+}
+
+//Default values for BMIResult
+export const defaultBMIResult: BMIResult = {
+  bmi: 22, // A common "healthy" BMI value
+  ideal_weight: 70, // Average ideal weight based on 170cm height
+  status: "healthy",
+  bmi_scale: {
+    underweight: 57, // Example values based on a 170cm height
+    healthy: 72,
+    overweight: 85,
+  },
+}
+
 export function bmiToKg(bmi: number, height_meters: number): number {
   return bmi * (height_meters * height_meters)
 }

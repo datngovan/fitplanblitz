@@ -1,4 +1,4 @@
-export type ComposistionInput = {
+export type CompositionInput = {
   is_fat_accurate: boolean
   neck: number
   waist: number
@@ -18,11 +18,32 @@ export type ComposistionInput = {
     | "obese"
 }
 
-export type ComposistionResult = {
+//Default values for CompositionInput
+export const defaultCompositionInput: CompositionInput = {
+  is_fat_accurate: false,
+  neck: 38, // Default in cm
+  waist: 80, // Default in cm
+  height: 170, // Default height in cm
+  hip: 95, // Default in cm (for females)
+  gender: "M",
+  age: 25,
+  fitness_goal: "build_muscle",
+  body_type: "healthy",
+}
+
+export type CompositionResult = {
   fat_percentage: number
   is_healthy: boolean
   max_value: number
   ideal_fat: number
+}
+
+//Default values for CompositionResult
+export const defaultCompositionResult: CompositionResult = {
+  fat_percentage: 20, // Average for males
+  is_healthy: true,
+  max_value: 25, // A safe upper limit for body fat
+  ideal_fat: 15, // Typical ideal fat percentage
 }
 
 type BodyMeasurement = {
@@ -95,26 +116,13 @@ export function isCompositionHealthy({
   gender: "M" | "F"
   age: number
 }): boolean {
-  // age less than 40 - F
   if (age < 40 && gender === "F" && fat_percentage < 33) return true
-
-  // age less than 40 - M
   if (age < 40 && gender === "M" && fat_percentage < 20) return true
-
-  // age 40 to 59 - F
-  if (age >= 40 && age < 60 && gender === "F" && fat_percentage < 34) {
+  if (age >= 40 && age < 60 && gender === "F" && fat_percentage < 34)
     return true
-  }
-
-  // age 40 to 59 - M
-  if (age >= 40 && age < 60 && gender === "M" && fat_percentage < 22) {
+  if (age >= 40 && age < 60 && gender === "M" && fat_percentage < 22)
     return true
-  }
-
-  // age +60 - F
   if (age >= 60 && gender === "F" && fat_percentage < 36) return true
-
-  // age +60 - M
   if (age >= 60 && gender === "M" && fat_percentage < 24) return true
 
   return false
@@ -130,7 +138,7 @@ export default function getCompositionData({
   age,
   body_type,
   fitness_goal,
-}: ComposistionInput): ComposistionResult {
+}: CompositionInput): CompositionResult {
   let fat_percentage = 0
   if (is_fat_accurate) {
     fat_percentage = calculateFat({
@@ -141,33 +149,25 @@ export default function getCompositionData({
       waist,
     })
   } else {
-    if (body_type === "ultralean") fat_percentage = 3
-    if (body_type === "verylean") fat_percentage = 8
-    if (body_type === "lean") fat_percentage = 13
-    if (body_type === "moderatelylean") fat_percentage = 18
-    if (body_type === "healthy") fat_percentage = 23
-    if (body_type === "moderatelyoverweight") fat_percentage = 28
-    if (body_type === "overweight") fat_percentage = 33
-    if (body_type === "obese") fat_percentage = 38
+    const bodyTypeFatMap: Record<CompositionInput["body_type"], number> = {
+      ultralean: 3,
+      verylean: 8,
+      lean: 13,
+      moderatelylean: 18,
+      healthy: 23,
+      moderatelyoverweight: 28,
+      overweight: 33,
+      obese: 38,
+    }
+    fat_percentage = bodyTypeFatMap[body_type] || 23 // Default to healthy if not found
   }
 
   let max_value = 0
-  // age less than 40 - F
   if (age < 40 && gender === "F") max_value = 33
-
-  // age less than 40 - M
   if (age < 40 && gender === "M") max_value = 20
-
-  // age 40 to 59 - F
   if (age >= 40 && age < 60 && gender === "F") max_value = 34
-
-  // age 40 to 59 - M
   if (age >= 40 && age < 60 && gender === "M") max_value = 22
-
-  // age +60 - F
   if (age >= 60 && gender === "F") max_value = 36
-
-  // age +60 - M
   if (age >= 60 && gender === "M") max_value = 24
 
   let ideal_fat = getIdeal({ age, gender })

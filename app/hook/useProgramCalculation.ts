@@ -1,29 +1,29 @@
 import { useMemo } from "react"
 
-import getBMI, { BMIInput, BMIResult } from "@/lib/utils/bmi"
+import getBMI, { BMIInput, BMIResult, defaultBMIResult } from "@/lib/utils/bmi"
 import calculateCalories, {
   CaloriesInput,
   CaloriesResult,
+  defaultCaloriesResult,
 } from "@/lib/utils/calories"
 import getCompositionData, {
-  ComposistionInput,
-  ComposistionResult,
+  CompositionInput,
+  CompositionResult,
+  defaultCompositionResult,
 } from "@/lib/utils/composition"
 
-export type OverviewInput = BMIInput & CaloriesInput & ComposistionInput
-// export type OverviewResult = Partial<
-//   BMIResult & CaloriesResult & ComposistionResult
-// >
+export type OverviewInput = BMIInput & CaloriesInput & CompositionInput
 export type OverviewResult = {
-  bmi_result: BMIResult | null
-  calories_result: CaloriesResult | null
-  composistion_result: ComposistionResult | null
+  bmi_result: BMIResult
+  calories_result: CaloriesResult
+  composition_result: CompositionResult
 }
+
 export default function useProgramCalculations(
-  result: OverviewInput | null
+  result: OverviewInput
 ): OverviewResult {
-  const bmiData = useMemo<BMIResult | null>(() => {
-    if (!result) return null
+  const bmiData = useMemo<BMIResult>(() => {
+    if (!result) return defaultBMIResult
     return getBMI({
       height: result.height,
       weight: result.weight,
@@ -32,8 +32,8 @@ export default function useProgramCalculations(
     })
   }, [result])
 
-  const compositionData = useMemo<ComposistionResult | null>(() => {
-    if (!result) return null
+  const compositionData = useMemo<CompositionResult>(() => {
+    if (!result) return defaultCompositionResult
     return getCompositionData({
       age: result.age,
       body_type: result.body_type,
@@ -47,8 +47,8 @@ export default function useProgramCalculations(
     })
   }, [result])
 
-  const calorieData = useMemo<CaloriesResult | null>(() => {
-    if (!result) return null
+  const calorieData = useMemo<CaloriesResult>(() => {
+    if (!result) return defaultCaloriesResult
     return calculateCalories({
       activity: result.activity,
       age: result.age,
@@ -59,11 +59,11 @@ export default function useProgramCalculations(
       ideal_weight: bmiData?.ideal_weight || 0,
       workout_days: result.workout_days,
     })
-  }, [result, bmiData?.ideal_weight])
+  }, [result, bmiData?.ideal_weight]) // Keeping dependency to avoid stale calculations
 
   return {
     bmi_result: bmiData,
-    composistion_result: compositionData,
+    composition_result: compositionData,
     calories_result: calorieData,
   }
 }

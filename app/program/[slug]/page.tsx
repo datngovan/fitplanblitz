@@ -53,7 +53,7 @@ export default function ProgramPage({ params }: { params: { slug: string } }) {
   useEffect(() => {
     console.log("Fetched mockData:", mockData)
   }, [mockData])
-  const { bmi_result, composistion_result, calories_result } =
+  const { bmi_result, composition_result, calories_result } =
     useProgramCalculations(mockData)
   if (!mockData) return <h1>NO DATA</h1>
   // // bmi
@@ -121,9 +121,9 @@ export default function ProgramPage({ params }: { params: { slug: string } }) {
 
           {/* composition */}
           <BodyMassResult
-            fat_percentage={composistion_result.fat_percentage}
-            is_healthy={composistion_result.is_healthy}
-            max_value={composistion_result.max_value}
+            fat_percentage={composition_result.fat_percentage}
+            is_healthy={composition_result.is_healthy}
+            max_value={composition_result.max_value}
           />
         </div>
 
@@ -170,14 +170,13 @@ export default function ProgramPage({ params }: { params: { slug: string } }) {
               Suggested Body Composition
             </h3>
             <div className="text-3xl font-semibold text-emerald-500">
-              {composistion_result.ideal_fat <=
-              composistion_result.fat_percentage
-                ? composistion_result.ideal_fat
-                : composistion_result.fat_percentage}
+              {composition_result.ideal_fat <= composition_result.fat_percentage
+                ? composition_result.ideal_fat
+                : composition_result.fat_percentage}
               %
             </div>
-            {composistion_result.ideal_fat >=
-            composistion_result.fat_percentage ? (
+            {composition_result.ideal_fat >=
+            composition_result.fat_percentage ? (
               <p>
                 Your current body fat percentage is already perfect, so our job
                 is to ensure that you maintain this body composition.
@@ -186,7 +185,7 @@ export default function ProgramPage({ params }: { params: { slug: string } }) {
               <p>
                 Based on the ideal body fat percentages according to Jackson &
                 Pollock and your fitness goal, the ideal body composition to
-                work with is {composistion_result.ideal_fat}%.
+                work with is {composition_result.ideal_fat}%.
               </p>
             )}
           </div>
@@ -214,16 +213,14 @@ export default function ProgramPage({ params }: { params: { slug: string } }) {
             {mockData.weight === bmi_result.ideal_weight &&
               " maintain your current weight, "}
             and for the body composition, you should
-            {composistion_result.fat_percentage >
-              composistion_result.ideal_fat &&
+            {composition_result.fat_percentage > composition_result.ideal_fat &&
               ` burn ${
-                composistion_result.fat_percentage -
-                composistion_result.ideal_fat
+                composition_result.fat_percentage - composition_result.ideal_fat
               } % of body fat to achieve the suggested ideal body composistion (${
-                composistion_result.ideal_fat
+                composition_result.ideal_fat
               } %).`}
-            {composistion_result.fat_percentage <=
-              composistion_result.ideal_fat &&
+            {composition_result.fat_percentage <=
+              composition_result.ideal_fat &&
               " maintain your current body fat percentage."}
           </p>
         </div>

@@ -216,7 +216,7 @@ export default function Factors({
               <div className="h-5 w-4 rounded-full bg-orange-400" />
               <div className="mx-auto h-full w-0.5 bg-gradient-to-b from-orange-400" />
             </div>
-            <div className="flex flex-col gap-2">
+            <div className="flex flex-col gap-2 border border-orange-400">
               <h3 className="text-lg font-medium">
                 Progressive Overload - 40%
               </h3>
@@ -263,13 +263,13 @@ export default function Factors({
             <div className="flex flex-col gap-2">
               <h3 className="text-lg font-medium">Rest - 15%</h3>
               <p className="text-md text-neutral-500">
-                Muscle growth occurs during periods of rest, not while you&apos;re
-                working out. Sufficient rest is crucial to allow your muscles to
-                recover and repair. Overtraining can lead to muscle fatigue,
-                injuries, and hindered progress. Aim for 7-9 hours of quality
-                sleep each night, and consider incorporating rest days into your
-                workout routine to prevent overexertion and promote muscle
-                repair.
+                Muscle growth occurs during periods of rest, not while
+                you&apos;re working out. Sufficient rest is crucial to allow
+                your muscles to recover and repair. Overtraining can lead to
+                muscle fatigue, injuries, and hindered progress. Aim for 7-9
+                hours of quality sleep each night, and consider incorporating
+                rest days into your workout routine to prevent overexertion and
+                promote muscle repair.
               </p>
             </div>
           </div>

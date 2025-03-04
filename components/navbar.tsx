@@ -38,8 +38,8 @@ export default function Navbar({ className }: { className: string }) {
       </div>
 
       {/* NAVIGATION LINKS FOR DESKTOP */}
-      <NavigationMenu className="hidden md:flex mx-auto w-2/6 justify-between">
-        <NavigationMenuList>
+      <NavigationMenu>
+        <NavigationMenuList className="hidden md:flex mx-auto w-2/6 justify-between">
           <NavigationMenuItem>
             <Link href="/">
               <Button
